@@ -1,4 +1,5 @@
 const SITE_PAGES = [
+  { id: "dashboard", href: "dashboard.html", label: "מרכז" },
   { id: "flights", href: "flights.html", label: "כל הטיסות", count: "38" },
   { id: "may-june", href: "may-june.html", label: "מאי–יוני", count: "8" },
 ];
@@ -16,7 +17,7 @@ function buildSiteHeader() {
 
   const activePage = document.body.dataset.page;
   const brand = createElement("a", "site-brand");
-  brand.href = "flights.html";
+  brand.href = "dashboard.html";
   brand.setAttribute("aria-label", "צפון איטליה 2027 — השוואת טיסות ותכנון");
 
   const mark = createElement("span", "brand-mark");
