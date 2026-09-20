@@ -1,5 +1,5 @@
 :root {
-  --site-max-width: 1400px;
+  --site-max-width: 1240px;
   --site-radius: 20px;
   --site-font: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
 }
@@ -18,6 +18,10 @@ body {
     radial-gradient(circle at 85% -5%, rgba(58,112,226,.16), transparent 30rem),
     var(--bg);
 }
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
 
 button,
 select { font: inherit; }
@@ -133,7 +137,7 @@ main {
   flex-direction: column;
   justify-content: center;
   min-height: 224px;
-  height: auto;
+  height: 224px;
   padding: 42px 4px 38px;
   color: var(--text);
   border-bottom: 1px solid var(--line);
@@ -250,7 +254,7 @@ main {
   margin: 32px 4px 12px;
 }
 .section-title,
-.section-heading h2 { font-size: 22px; line-height: 1.25; letter-spacing: -.02em; }
+.section-heading h2 { margin-block: 0; font-size: 22px; line-height: 1.25; letter-spacing: -.02em; }
 
 .table-shell {
   overflow: hidden;
@@ -263,7 +267,14 @@ main {
 table { width: 100%; min-width: 1080px; border-collapse: separate; border-spacing: 0; }
 th,
 td { padding: 15px 13px; text-align: start; vertical-align: middle; border-bottom: 1px solid var(--line); }
-th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13px; font-weight: 850; }
+th { position: sticky; top: 0; z-index: 2; min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13px; font-weight: 850; }
+th:first-child,
+td:first-child { padding-inline-start: 18px; }
+th.index-col,
+td.index-cell { width: 58px; min-width: 58px; padding-inline: 10px; text-align: center; }
+td.index-cell { color: var(--muted); font-weight: 800; font-variant-numeric: tabular-nums; }
+tbody tr:nth-child(even) { background: color-mix(in srgb,var(--panel-soft,var(--soft)) 60%,transparent); }
+tbody tr:last-child td { border-bottom: 0; }
 .ils,
 .usd,
 .date-range,
@@ -271,6 +282,8 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
 .flight-time { font-variant-numeric: tabular-nums; }
 .price .ils { text-align: start; }
 .price .usd { text-align: end; }
+.source { margin: 16px 4px 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.source a { color: var(--blue); }
 
 @media (max-width: 760px) {
   main { width: min(100% - 20px,720px); padding-block: 16px 30px; }
@@ -280,7 +293,7 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
   .page-tabs { width: 100%; border-top: 1px solid var(--line); }
   .page-tab { flex: 1; min-width: 0; padding: 10px 8px 11px; }
   .page-tab::after { inset-inline: 8px; }
-  .hero { height: auto; min-height: 0; padding: 34px 2px 30px; border-radius: 0; }
+  .hero { height: 218px; min-height: 218px; padding: 30px 2px; border-radius: 0; }
   .hero h1 { font-size: 34px; }
   .hero > p:not(.eyebrow) { margin-top: 13px; font-size: 14px; }
   .hero .trip-strip { display: grid; gap: 8px; margin-top: 18px; }
@@ -296,6 +309,33 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
   .section-heading { margin: 24px 4px 10px; }
   .section-title,
   .section-heading h2 { font-size: 20px; }
+  .table-shell { overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .table-scroll { overflow: visible; }
+  table,
+  thead,
+  tbody,
+  thead tr,
+  tbody tr,
+  th,
+  td { display: block; width: 100%; }
+  table { min-width: 0; }
+  thead { position: absolute; width: 1px!important; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  tbody tr { margin-block-end: 10px; padding: 5px 14px; border: 1px solid var(--line); border-radius: 15px; background: var(--panel)!important; box-shadow: 0 8px 25px rgba(22,47,92,.06); }
+  td { display: grid; grid-template-columns: minmax(105px,34%) 1fr; gap: 10px; align-items: center; padding: 10px 0!important; border-bottom: 1px solid var(--line); white-space: normal; }
+  td:last-child { border-bottom: 0; }
+  td::before { color: var(--muted); font-size: 12px; font-weight: 800; }
+  th.index-col,
+  td.index-cell { width: 100%; min-width: 0; padding-inline: 0; text-align: start; }
+  td:nth-child(1)::before { content: "מספר"; }
+  td:nth-child(2)::before { content: "חודש"; }
+  td:nth-child(3)::before { content: "תאריכים"; }
+  td:nth-child(4)::before { content: "ימי השבוע"; }
+  td:nth-child(5)::before { content: "מחיר לזוג"; }
+  td:nth-child(6)::before { content: "מחיר לאדם"; }
+  td:nth-child(7)::before { content: "טיסת הלוך"; }
+  td:nth-child(8)::before { content: "טיסת חזור"; }
+  .date-range { justify-content: flex-start; }
+  .flight { justify-self: start; }
   td.price::before { grid-row: 1 / span 2; align-self: center; }
   td.price .ils,
   td.price .usd { grid-column: 2; }
