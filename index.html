@@ -18,7 +18,10 @@
     .filter-panel h2 { margin:0 0 12px; font-size:18px; }
     .filters { display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:12px; }
     .filter-field { display:grid; gap:5px; color:var(--muted); font-size:13px; font-weight:700; }
+    .filter-control { display:grid; grid-template-columns:minmax(0,1fr) 36px 36px; gap:5px; }
     .filter-field select { width:100%; min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); font:inherit; font-weight:400; }
+    .sort-button { border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-size:17px; }
+    .sort-button:hover,.sort-button.active { border-color:var(--blue); color:var(--blue); font-weight:700; }
     .filter-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; }
     .clear-filters { padding:8px 14px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-weight:700; }
     .clear-filters:hover { border-color:var(--blue); }
@@ -91,14 +94,14 @@
   <section class="filter-panel" aria-labelledby="filter-title">
     <h2 id="filter-title">סינון הטבלה</h2>
     <div class="filters">
-      <label class="filter-field">חודש<select data-filter-column="0"><option value="">הכול</option></select></label>
-      <label class="filter-field">תאריכים<select data-filter-column="1"><option value="">הכול</option></select></label>
-      <label class="filter-field">ימי השבוע<select data-filter-column="2"><option value="">הכול</option></select></label>
-      <label class="filter-field">מחיר לזוג<select data-filter-column="3"><option value="">הכול</option></select></label>
-      <label class="filter-field">מחיר לאדם<select data-filter-column="4"><option value="">הכול</option></select></label>
-      <label class="filter-field">טיסת הלוך<select data-filter-column="5"><option value="">הכול</option></select></label>
-      <label class="filter-field">טיסת חזור<select data-filter-column="6"><option value="">הכול</option></select></label>
-      <label class="filter-field">הערה<select data-filter-column="7"><option value="">הכול</option></select></label>
+      <label class="filter-field">חודש<span class="filter-control"><select data-filter-column="0"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="asc" aria-label="מיון חודש בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="0" data-direction="desc" aria-label="מיון חודש בסדר יורד">↓</button></span></label>
+      <label class="filter-field">תאריכים<span class="filter-control"><select data-filter-column="1"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="asc" aria-label="מיון תאריכים בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="1" data-direction="desc" aria-label="מיון תאריכים בסדר יורד">↓</button></span></label>
+      <label class="filter-field">ימי השבוע<span class="filter-control"><select data-filter-column="2"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="2" data-direction="asc" aria-label="מיון ימי השבוע בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="2" data-direction="desc" aria-label="מיון ימי השבוע בסדר יורד">↓</button></span></label>
+      <label class="filter-field">מחיר לזוג<span class="filter-control"><select data-filter-column="3"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="3" data-direction="asc" aria-label="מיון מחיר לזוג מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="3" data-direction="desc" aria-label="מיון מחיר לזוג מהגבוה לנמוך">↓</button></span></label>
+      <label class="filter-field">מחיר לאדם<span class="filter-control"><select data-filter-column="4"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="4" data-direction="asc" aria-label="מיון מחיר לאדם מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="4" data-direction="desc" aria-label="מיון מחיר לאדם מהגבוה לנמוך">↓</button></span></label>
+      <label class="filter-field">טיסת הלוך<span class="filter-control"><select data-filter-column="5"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="5" data-direction="asc" aria-label="מיון טיסת הלוך בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="5" data-direction="desc" aria-label="מיון טיסת הלוך בסדר יורד">↓</button></span></label>
+      <label class="filter-field">טיסת חזור<span class="filter-control"><select data-filter-column="6"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="6" data-direction="asc" aria-label="מיון טיסת חזור בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="6" data-direction="desc" aria-label="מיון טיסת חזור בסדר יורד">↓</button></span></label>
+      <label class="filter-field">הערה<span class="filter-control"><select data-filter-column="7"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="7" data-direction="asc" aria-label="מיון הערה בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="7" data-direction="desc" aria-label="מיון הערה בסדר יורד">↓</button></span></label>
     </div>
     <div class="filter-actions">
       <button type="button" class="clear-filters">ניקוי כל המסננים</button>
@@ -132,7 +135,10 @@
 <script>
   const rows = [...document.querySelectorAll('tbody tr')];
   const filters = [...document.querySelectorAll('[data-filter-column]')];
+  const sortButtons = [...document.querySelectorAll('[data-sort-column]')];
   const resultCount = document.querySelector('.result-count');
+  const tbody = document.querySelector('tbody');
+  rows.forEach((row, index) => { row.dataset.originalIndex = index; });
 
   const cleanText = value => value.replace(/\s+/g, ' ').trim();
 
@@ -163,8 +169,21 @@
   }
 
   filters.forEach(select => select.addEventListener('change', applyFilters));
+  sortButtons.forEach(button => button.addEventListener('click', () => {
+    const column = Number(button.dataset.sortColumn);
+    const direction = button.dataset.direction === 'asc' ? 1 : -1;
+    rows.sort((a, b) => cleanText(a.cells[column].innerText).localeCompare(
+      cleanText(b.cells[column].innerText), 'he', { numeric: true }
+    ) * direction);
+    rows.forEach(row => tbody.appendChild(row));
+    sortButtons.forEach(item => item.classList.remove('active'));
+    button.classList.add('active');
+  }));
   document.querySelector('.clear-filters').addEventListener('click', () => {
     filters.forEach(select => { select.value = ''; });
+    rows.sort((a, b) => Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex));
+    rows.forEach(row => tbody.appendChild(row));
+    sortButtons.forEach(button => button.classList.remove('active'));
     applyFilters();
   });
   applyFilters();
