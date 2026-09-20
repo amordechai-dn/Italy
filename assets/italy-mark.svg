@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sky" x1="8" y1="6" x2="58" y2="60" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123C8C"/>
+      <stop offset="1" stop-color="#3775E9"/>
+    </linearGradient>
+    <linearGradient id="lake" x1="10" y1="45" x2="54" y2="45" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#8CE9CF"/>
+      <stop offset="1" stop-color="#55C7B0"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#sky)"/>
+  <path d="M9 38 23.5 20 33 31 42.5 17 55 38" fill="none" stroke="#FFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m19.5 25 4-5 4.2 5.1M38.7 22.7l3.8-5.7 4.3 6.7" fill="none" stroke="#DCE9FF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M10 44c5.5-3.2 10.8-3.2 16 0s10.5 3.2 16 0 10.2-3.2 12 0" fill="none" stroke="url(#lake)" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M15 51h34" stroke="#FFF" stroke-opacity=".42" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

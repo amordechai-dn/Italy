@@ -19,8 +19,14 @@ function buildSiteHeader() {
   brand.href = "flights.html";
   brand.setAttribute("aria-label", "צפון איטליה 2027 — השוואת טיסות ותכנון");
 
-  const mark = createElement("span", "brand-mark", "IT");
+  const mark = createElement("span", "brand-mark");
   mark.setAttribute("aria-hidden", "true");
+  const logo = createElement("img", "brand-logo");
+  logo.src = "assets/italy-mark.svg";
+  logo.alt = "";
+  logo.width = 40;
+  logo.height = 40;
+  mark.append(logo);
   const copy = createElement("span", "site-brand-copy");
   const title = createElement("strong");
   const year = createElement("bdi", "", "2027");
