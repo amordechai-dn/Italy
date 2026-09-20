@@ -84,6 +84,40 @@
       width:100%; min-width:0; padding:8px; border:1px solid var(--line); border-radius:9px;
       background:var(--panel); color:var(--text); font-size:12px; font-weight:600; cursor:pointer;
     }
+    .column-tools select.is-enhanced { display:none; }
+    .filter-dropdown { position:relative; min-width:0; }
+    .filter-trigger {
+      width:100%; min-height:34px; display:flex; align-items:center; justify-content:space-between;
+      gap:8px; padding:7px 10px; color:var(--muted); border:1px solid var(--line);
+      border-radius:9px; background:var(--panel); cursor:pointer; font-size:12px; font-weight:700;
+      text-align:right; transition:background .18s ease,color .18s ease,border-color .18s ease,box-shadow .18s ease;
+    }
+    .filter-trigger:hover,.filter-trigger[aria-expanded="true"] {
+      color:var(--blue); border-color:color-mix(in srgb,var(--blue-2) 55%,var(--line));
+      background:var(--blue-soft); box-shadow:0 0 0 3px color-mix(in srgb,var(--blue-2) 10%,transparent);
+    }
+    .filter-trigger.has-value { color:var(--blue); border-color:color-mix(in srgb,var(--blue-2) 38%,var(--line)); background:var(--blue-soft); }
+    .filter-value { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .filter-chevron {
+      width:7px; height:7px; flex:0 0 7px; border-left:1.8px solid currentColor;
+      border-bottom:1.8px solid currentColor; transform:rotate(-45deg) translateY(-1px); transition:transform .18s ease;
+    }
+    .filter-trigger[aria-expanded="true"] .filter-chevron { transform:rotate(135deg) translate(-1px,-1px); }
+    .filter-menu {
+      position:absolute; inset-inline-start:0; top:calc(100% + 7px); z-index:30;
+      width:max-content; min-width:max(100%,190px); max-width:290px; max-height:250px; overflow:auto;
+      padding:6px; border:1px solid var(--line); border-radius:12px; background:var(--panel);
+      box-shadow:0 18px 45px rgba(20,42,82,.2); overscroll-behavior:contain;
+    }
+    .filter-option {
+      width:100%; display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:9px 10px; color:var(--text); border:0; border-radius:8px; background:transparent;
+      cursor:pointer; font-size:12px; font-weight:650; text-align:right; white-space:normal;
+    }
+    .filter-option:hover,.filter-option:focus-visible { color:var(--blue); background:var(--blue-soft); outline:none; }
+    .filter-option[aria-selected="true"] { color:var(--blue); background:var(--blue-soft); font-weight:850; }
+    .filter-check { width:16px; color:var(--blue); opacity:0; font-weight:900; }
+    .filter-option[aria-selected="true"] .filter-check { opacity:1; }
     .sort-button {
       display:grid; place-items:center; width:34px; min-height:34px; border:1px solid var(--line);
       border-radius:9px; background:var(--panel); color:var(--muted); cursor:pointer; font-size:16px;
@@ -142,6 +176,7 @@
       th:first-child { padding-right:12px; }
       .column-name { min-height:0; font-size:12px; }
       .column-tools { margin-top:0; }
+      .filter-menu { inset-inline-start:auto; inset-inline-end:0; min-width:min(250px,74vw); }
       tbody tr { margin-bottom:10px; padding:5px 14px; background:var(--panel)!important; border:1px solid var(--line); border-radius:15px; box-shadow:0 8px 25px rgba(22,47,92,.06); }
       td { display:grid; grid-template-columns:minmax(105px,34%) 1fr; gap:10px; align-items:center; padding:10px 0!important; border-bottom:1px solid var(--line); white-space:normal; }
       td:last-child { border-bottom:0; }
@@ -232,6 +267,110 @@
     });
   });
 
+  const closeDropdowns = except => {
+    document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+      if (dropdown === except) return;
+      dropdown.querySelector('.filter-trigger').setAttribute('aria-expanded', 'false');
+      dropdown.querySelector('.filter-menu').hidden = true;
+    });
+  };
+
+  filters.forEach((select, index) => {
+    const dropdown = document.createElement('div');
+    const trigger = document.createElement('button');
+    const valueLabel = document.createElement('span');
+    const chevron = document.createElement('span');
+    const menu = document.createElement('div');
+    const menuId = `filter-menu-${index}`;
+
+    dropdown.className = 'filter-dropdown';
+    trigger.type = 'button';
+    trigger.className = 'filter-trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', menuId);
+    trigger.setAttribute('aria-label', select.getAttribute('aria-label'));
+    valueLabel.className = 'filter-value';
+    valueLabel.textContent = 'הכול';
+    chevron.className = 'filter-chevron';
+    chevron.setAttribute('aria-hidden', 'true');
+    trigger.append(valueLabel, chevron);
+
+    menu.id = menuId;
+    menu.className = 'filter-menu';
+    menu.setAttribute('role', 'listbox');
+    menu.setAttribute('aria-label', select.getAttribute('aria-label'));
+    menu.hidden = true;
+
+    [...select.options].forEach(option => {
+      const item = document.createElement('button');
+      const itemText = document.createElement('span');
+      const check = document.createElement('span');
+      item.type = 'button';
+      item.className = 'filter-option';
+      item.setAttribute('role', 'option');
+      item.setAttribute('aria-selected', option.value === select.value ? 'true' : 'false');
+      item.dataset.value = option.value;
+      itemText.textContent = option.textContent;
+      check.className = 'filter-check';
+      check.textContent = '✓';
+      check.setAttribute('aria-hidden', 'true');
+      item.append(itemText, check);
+      item.addEventListener('click', () => {
+        select.value = option.value;
+        select.dispatchEvent(new Event('change', { bubbles:true }));
+        closeDropdowns();
+        trigger.focus();
+      });
+      menu.appendChild(item);
+    });
+
+    trigger.addEventListener('click', () => {
+      const willOpen = menu.hidden;
+      closeDropdowns(willOpen ? dropdown : null);
+      menu.hidden = !willOpen;
+      trigger.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen) menu.querySelector('[aria-selected="true"]')?.focus();
+    });
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown') {
+        event.preventDefault();
+        closeDropdowns(dropdown);
+        menu.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        menu.querySelector('[aria-selected="true"]')?.focus();
+      }
+    });
+    menu.addEventListener('keydown', event => {
+      const options = [...menu.querySelectorAll('.filter-option')];
+      const current = options.indexOf(document.activeElement);
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        const step = event.key === 'ArrowDown' ? 1 : -1;
+        options[(current + step + options.length) % options.length].focus();
+      } else if (event.key === 'Escape') {
+        closeDropdowns();
+        trigger.focus();
+      }
+    });
+
+    dropdown.append(trigger, menu);
+    select.classList.add('is-enhanced');
+    select.insertAdjacentElement('afterend', dropdown);
+    select.addEventListener('change', () => {
+      const selected = select.options[select.selectedIndex];
+      valueLabel.textContent = selected.textContent;
+      trigger.classList.toggle('has-value', Boolean(select.value));
+      menu.querySelectorAll('.filter-option').forEach(item => {
+        item.setAttribute('aria-selected', String(item.dataset.value === select.value));
+      });
+    });
+  });
+
+  document.addEventListener('click', event => {
+    if (!event.target.closest('.filter-dropdown')) closeDropdowns();
+  });
+
   function applyFilters() {
     let visible = 0;
     rows.forEach(row => {
@@ -261,7 +400,10 @@
     applyFilters();
   }));
   document.querySelector('.clear-filters').addEventListener('click', () => {
-    filters.forEach(select => { select.value = ''; });
+    filters.forEach(select => {
+      select.value = '';
+      select.dispatchEvent(new Event('change', { bubbles:true }));
+    });
     rows.sort((a, b) => Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex));
     rows.forEach(row => tbody.appendChild(row));
     sortButtons.forEach(button => { button.classList.remove('active'); button.setAttribute('aria-pressed', 'false'); });
