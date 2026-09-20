@@ -73,32 +73,54 @@
     .control { display:grid; gap:7px; min-width:0; }
     .control label { padding-inline:2px; color:var(--text); font-size:12px; font-weight:800; }
     .select-wrap { position:relative; min-width:0; }
-    .select-wrap::before {
+    .select-trigger::before {
       content:""; position:absolute; z-index:1; left:43px; top:11px; bottom:11px;
       width:1px; background:var(--line); pointer-events:none; transition:background .18s ease;
     }
-    .select-wrap::after {
+    .select-trigger::after {
       content:""; position:absolute; z-index:1; left:17px; top:50%; width:8px; height:8px;
       border-left:2px solid var(--muted); border-bottom:2px solid var(--muted);
       transform:translateY(-68%) rotate(-45deg); pointer-events:none; transition:transform .18s ease,border-color .18s ease;
     }
-    .control select {
-      appearance:none; -webkit-appearance:none; width:100%; min-height:48px; padding:10px 14px 10px 54px;
+    .control select.native-select { display:none; }
+    .select-trigger {
+      position:relative; width:100%; min-height:48px; padding:10px 14px 10px 54px; text-align:right;
       color:var(--text); border:1px solid color-mix(in srgb,var(--line) 88%,var(--blue)); border-radius:12px;
       background:linear-gradient(180deg,var(--panel) 0%,var(--panel-soft) 100%); cursor:pointer;
       font-size:13px; font-weight:750; box-shadow:0 2px 5px rgba(22,47,92,.035),inset 0 1px 0 rgba(255,255,255,.5);
       transition:border-color .18s ease,box-shadow .18s ease,background .18s ease,transform .18s ease;
     }
-    .control select:hover { border-color:color-mix(in srgb,var(--blue-2) 55%,var(--line)); box-shadow:0 5px 14px rgba(22,47,92,.08); }
-    .control select:focus-visible {
+    .select-trigger:hover { border-color:color-mix(in srgb,var(--blue-2) 55%,var(--line)); box-shadow:0 5px 14px rgba(22,47,92,.08); }
+    .select-trigger:focus-visible {
       outline:0; border-color:var(--blue-2);
       box-shadow:0 0 0 4px color-mix(in srgb,var(--blue-2) 15%,transparent),0 6px 16px rgba(22,47,92,.08);
     }
-    .select-wrap:focus-within::before { background:color-mix(in srgb,var(--blue-2) 30%,var(--line)); }
-    .select-wrap:focus-within::after { border-color:var(--blue-2); transform:translateY(-30%) rotate(135deg); }
+    .select-wrap:focus-within .select-trigger::before { background:color-mix(in srgb,var(--blue-2) 30%,var(--line)); }
+    .select-wrap.is-open .select-trigger::after { border-color:var(--blue-2); transform:translateY(-30%) rotate(135deg); }
     .control.has-value label { color:var(--blue); }
-    .control.has-value select { border-color:color-mix(in srgb,var(--blue-2) 45%,var(--line)); background:var(--blue-soft); }
-    .control select option { color:var(--text); background:var(--panel); font-weight:650; }
+    .control.has-value .select-trigger { border-color:color-mix(in srgb,var(--blue-2) 45%,var(--line)); background:var(--blue-soft); }
+    .select-menu {
+      position:absolute; z-index:30; top:calc(100% + 7px); inset-inline:0; display:grid; gap:3px;
+      max-height:286px; margin:0; padding:7px; overflow:auto; overscroll-behavior:contain;
+      color:var(--text); border:1px solid color-mix(in srgb,var(--line) 78%,var(--blue)); border-radius:13px;
+      background:color-mix(in srgb,var(--panel) 96%,transparent); box-shadow:0 18px 44px rgba(10,26,58,.2);
+      backdrop-filter:blur(14px); scrollbar-width:thin; scrollbar-color:color-mix(in srgb,var(--blue-2) 45%,transparent) transparent;
+      transform-origin:top center; animation:select-menu-in .14s ease-out;
+    }
+    .select-menu[hidden] { display:none; }
+    @keyframes select-menu-in { from { opacity:0; transform:translateY(-5px) scale(.985); } to { opacity:1; transform:none; } }
+    .select-option {
+      position:relative; width:100%; min-height:39px; padding:8px 12px 8px 38px; text-align:right;
+      color:var(--text); border:0; border-radius:8px; background:transparent; cursor:pointer;
+      font-size:13px; font-weight:650; transition:background .14s ease,color .14s ease;
+    }
+    .select-option::after {
+      content:"✓"; position:absolute; left:12px; top:50%; color:var(--blue-2); font-size:14px; font-weight:900;
+      opacity:0; transform:translateY(-50%) scale(.7); transition:opacity .14s ease,transform .14s ease;
+    }
+    .select-option:hover,.select-option:focus-visible { outline:0; color:var(--blue); background:var(--blue-soft); }
+    .select-option[aria-selected="true"] { color:var(--blue); background:var(--blue-soft); font-weight:850; }
+    .select-option[aria-selected="true"]::after { opacity:1; transform:translateY(-50%) scale(1); }
     .filter-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
     .active-summary { min-height:20px; color:var(--muted); font-size:12px; }
     .clear-filters {
@@ -160,7 +182,8 @@
       .filter-disclosure[open] summary::before { content:"−"; }
       .disclosure-status { margin-inline-start:auto; color:var(--muted); font-size:11px; font-weight:700; }
       .filter-grid { grid-template-columns:1fr; gap:11px; padding:14px 15px; }
-      .control select { min-height:50px; font-size:14px; }
+      .select-trigger { min-height:50px; font-size:14px; }
+      .select-menu { position:relative; top:auto; inset-inline:auto; max-height:260px; margin-top:6px; box-shadow:0 10px 26px rgba(10,26,58,.14); }
       .filter-actions { align-items:stretch; flex-direction:column; margin:0; padding:0 15px 15px; border-top:0; }
       .clear-filters { width:100%; min-height:46px; }
       .active-summary { order:-1; }
@@ -319,6 +342,125 @@
     controls.month.appendChild(option);
   });
 
+  const enhancedSelects = [];
+  const closeAllSelects = except => enhancedSelects.forEach(item => {
+    if (item.wrap !== except) item.close();
+  });
+
+  function enhanceSelect(select, index) {
+    const wrap = select.closest('.select-wrap');
+    const label = select.closest('.control').querySelector('label');
+    const listId = `${select.id}-listbox`;
+    const labelId = `${select.id}-label`;
+    const valueId = `${select.id}-value`;
+    label.id = labelId;
+    select.classList.add('native-select');
+    select.tabIndex = -1;
+    select.setAttribute('aria-hidden', 'true');
+
+    const trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'select-trigger';
+    trigger.setAttribute('aria-haspopup', 'listbox');
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', listId);
+    trigger.setAttribute('aria-labelledby', `${labelId} ${valueId}`);
+    const value = document.createElement('span');
+    value.id = valueId;
+    value.className = 'select-value';
+    trigger.appendChild(value);
+
+    const menu = document.createElement('div');
+    menu.id = listId;
+    menu.className = 'select-menu';
+    menu.setAttribute('role', 'listbox');
+    menu.setAttribute('aria-labelledby', labelId);
+    menu.hidden = true;
+
+    const optionButtons = [...select.options].map((option, optionIndex) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'select-option';
+      button.setAttribute('role', 'option');
+      button.dataset.optionIndex = optionIndex;
+      button.textContent = option.textContent;
+      button.tabIndex = -1;
+      menu.appendChild(button);
+      return button;
+    });
+
+    const sync = () => {
+      value.textContent = select.options[select.selectedIndex].textContent;
+      optionButtons.forEach((button, optionIndex) => {
+        button.setAttribute('aria-selected', String(optionIndex === select.selectedIndex));
+      });
+    };
+    const close = (restoreFocus = false) => {
+      menu.hidden = true;
+      wrap.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) trigger.focus();
+    };
+    const open = (focusOption = false) => {
+      closeAllSelects(wrap);
+      menu.hidden = false;
+      wrap.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      const selected = optionButtons[select.selectedIndex] || optionButtons[0];
+      selected.scrollIntoView({ block:'nearest' });
+      if (focusOption) selected.focus();
+    };
+    const choose = button => {
+      select.selectedIndex = Number(button.dataset.optionIndex);
+      sync();
+      select.dispatchEvent(new Event('change', { bubbles:true }));
+      close(true);
+    };
+
+    trigger.addEventListener('click', event => {
+      event.stopPropagation();
+      menu.hidden ? open() : close();
+    });
+    trigger.addEventListener('keydown', event => {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        open(true);
+      } else if (event.key === 'Escape') {
+        close();
+      }
+    });
+    menu.addEventListener('click', event => event.stopPropagation());
+    menu.addEventListener('keydown', event => {
+      const current = optionButtons.indexOf(document.activeElement);
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        close(true);
+      } else if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        const direction = event.key === 'ArrowDown' ? 1 : -1;
+        optionButtons[(current + direction + optionButtons.length) % optionButtons.length].focus();
+      } else if (event.key === 'Home' || event.key === 'End') {
+        event.preventDefault();
+        optionButtons[event.key === 'Home' ? 0 : optionButtons.length - 1].focus();
+      } else if ((event.key === 'Enter' || event.key === ' ') && current >= 0) {
+        event.preventDefault();
+        choose(optionButtons[current]);
+      }
+    });
+    optionButtons.forEach(button => button.addEventListener('click', () => choose(button)));
+    label.addEventListener('click', event => {
+      event.preventDefault();
+      trigger.focus();
+    });
+    select.addEventListener('change', sync);
+    wrap.append(trigger, menu);
+    enhancedSelects.push({ wrap, trigger, menu, sync, close });
+    sync();
+  }
+
+  Object.values(controls).forEach(enhanceSelect);
+  document.addEventListener('click', () => closeAllSelects());
+
   function sortRows() {
     const mode = controls.sort.value;
     rows.sort((a, b) => {
@@ -365,6 +507,7 @@
       const isDefaultSort = select === controls.sort && select.value === 'date-asc';
       select.closest('.control').classList.toggle('has-value', Boolean(select.value) && !isDefaultSort);
     });
+    enhancedSelects.forEach(item => item.sync());
   }
 
   Object.values(controls).forEach(select => select.addEventListener('change', applyFilters));
