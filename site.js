@@ -27,6 +27,7 @@ function buildSiteHeader() {
   logo.alt = "";
   logo.width = 40;
   logo.height = 40;
+  logo.decoding = "async";
   mark.append(logo);
   const copy = createElement("span", "site-brand-copy");
   const title = createElement("strong");
@@ -45,7 +46,11 @@ function buildSiteHeader() {
     link.href = page.href;
     if (page.id === activePage) link.setAttribute("aria-current", "page");
     link.append(createElement("span", "", page.label));
-    if (page.count) link.append(createElement("span", "tab-count", page.count));
+    if (page.count) {
+      const count = createElement("span", "tab-count", page.count);
+      count.setAttribute("aria-hidden", "true");
+      link.append(count);
+    }
     nav.append(link);
   });
 

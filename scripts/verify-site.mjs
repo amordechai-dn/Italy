@@ -1,4 +1,4 @@
-import { readdir, readFile } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -25,9 +25,26 @@ for (const file of htmlFiles) {
   if (registered && pageId !== registered.id) errors.push(`${file}: data-page אינו תואם לרישום בניווט`);
   if (!html.includes('src="site.js?v=')) errors.push(`${file}: חסר site.js`);
   if (!html.includes("data-site-header")) errors.push(`${file}: חסרה מעטפת הכותרת המשותפת`);
+  if (!html.includes('class="skip-link"')) errors.push(`${file}: חסר קישור דילוג לתוכן הראשי`);
+  if (!html.includes('id="main-content"')) errors.push(`${file}: חסרה נקודת כניסה לתוכן הראשי`);
+  if (/<style[\s>]/.test(html)) errors.push(`${file}: עיצוב פנימי אסור; יש להעביר אותו לקובץ CSS`);
+  if (/<script>/.test(html)) errors.push(`${file}: קוד JavaScript פנימי אסור; יש להעביר אותו לקובץ JS`);
   if ((html.match(/class="page-tabs"/g) ?? []).length) errors.push(`${file}: הניווט הועתק ידנית במקום להיבנות מ-site.js`);
   if (!cssVersion) errors.push(`${file}: חסר site.css עם מספר גרסה`);
   else cssVersions.set(file, cssVersion);
+
+  const pageCss = [...html.matchAll(/href="([^"']+\.css)\?v=[^"']+"/g)]
+    .map(([, href]) => href)
+    .filter((href) => href !== "site.css");
+  for (const href of pageCss) {
+    try { await access(join(root, href)); }
+    catch { errors.push(`${file}: קובץ העיצוב ${href} אינו קיים`); }
+  }
+
+  for (const tableScroll of html.matchAll(/<div class="table-scroll"([^>]*)>/g)) {
+    if (!/tabindex="0"/.test(tableScroll[1])) errors.push(`${file}: אזור טבלה נגלל חייב להיות נגיש למקלדת`);
+  }
+  if (html.includes("<table") && !html.includes("<caption")) errors.push(`${file}: לטבלה חסרה כותרת caption`);
 }
 
 for (const { href } of registeredPages) {
