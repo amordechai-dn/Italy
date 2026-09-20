@@ -85,7 +85,17 @@ main {
 .site-brand-copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
 .site-brand-copy small { color: var(--muted); font-size: 11px; }
 
-.page-tabs { display: flex; align-self: stretch; gap: 4px; direction: rtl; }
+.page-tabs {
+  display: flex;
+  align-self: stretch;
+  gap: 4px;
+  min-width: 0;
+  direction: rtl;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+.page-tabs::-webkit-scrollbar { display: none; }
 .page-tab {
   position: relative;
   display: flex;
@@ -93,6 +103,7 @@ main {
   justify-content: center;
   gap: 7px;
   min-width: 126px;
+  flex: 0 0 auto;
   padding: 8px 13px 10px;
   color: var(--muted);
   direction: rtl;
