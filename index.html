@@ -1,8 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="השוואת מחירי טיסות אל על ישירות לצפון איטליה לזוג, כולל מזוודה, תאריכים ושעות טיסה.">
+  <meta name="theme-color" content="#123c8c">
   <title>השוואת טיסות אל על לצפון איטליה</title>
   <style>
     :root {
@@ -21,6 +23,7 @@
       }
     }
     * { box-sizing:border-box; }
+    .sr-only { position:absolute!important; width:1px!important; height:1px!important; padding:0!important; margin:-1px!important; overflow:hidden!important; clip:rect(0,0,0,0)!important; white-space:nowrap!important; border:0!important; }
     html { scroll-behavior:smooth; }
     body {
       margin:0; color:var(--text); line-height:1.55;
@@ -69,6 +72,7 @@
       background:var(--panel); cursor:pointer; font-size:13px; font-weight:800; transition:.18s ease;
     }
     .clear-filters:hover { color:#fff; border-color:var(--blue-2); background:var(--blue-2); transform:translateY(-1px); }
+    .clear-filters:disabled { color:var(--muted); border-color:var(--line); background:var(--panel); cursor:not-allowed; opacity:.62; transform:none; }
     .result-count { color:var(--muted); font-size:13px; }
     .empty-state { margin:0; padding:28px 16px; color:var(--muted); text-align:center; border-top:1px solid var(--line); }
     .table-scroll { overflow:auto; scrollbar-color:color-mix(in srgb,var(--blue) 30%,transparent) transparent; }
@@ -168,8 +172,9 @@
       th { display:grid; grid-template-columns:minmax(105px,34%) 1fr; gap:10px; align-items:center; min-width:0; padding:10px 12px; border:1px solid var(--line); border-radius:12px; background:var(--panel); position:static; }
       th:first-child { padding-right:12px; }
       .column-name { min-height:0; font-size:12px; }
-      .column-tools { margin-top:0; }
-      .filter-menu { inset-inline-start:auto; inset-inline-end:0; min-width:min(250px,74vw); }
+      .column-tools { margin-top:0; grid-template-columns:minmax(0,1fr) 42px; align-items:start; }
+      .filter-trigger,.sort-button { min-height:42px; }
+      .filter-menu { position:static; width:100%; min-width:0; max-width:none; margin-top:6px; box-shadow:none; }
       tbody tr { margin-bottom:10px; padding:5px 14px; background:var(--panel)!important; border:1px solid var(--line); border-radius:15px; box-shadow:0 8px 25px rgba(22,47,92,.06); }
       td { display:grid; grid-template-columns:minmax(105px,34%) 1fr; gap:10px; align-items:center; padding:10px 0!important; border-bottom:1px solid var(--line); white-space:normal; }
       td:last-child { border-bottom:0; }
@@ -201,35 +206,36 @@
 
   <div class="section-heading"><h2>כל האפשרויות</h2></div>
   <section class="table-shell" aria-label="טבלת השוואת טיסות">
-    <div class="table-toolbar"><div class="toolbar-actions"><button type="button" class="mobile-filter-toggle" aria-expanded="false" aria-controls="filter-row"><span class="filter-toggle-icon" aria-hidden="true">☰</span> סינון ומיון</button><button type="button" class="clear-filters"><span aria-hidden="true">↺</span> איפוס</button></div><span class="result-count" aria-live="polite"></span></div>
+    <div class="table-toolbar"><div class="toolbar-actions"><button type="button" class="mobile-filter-toggle" aria-expanded="false" aria-controls="filter-row"><span class="filter-toggle-icon" aria-hidden="true">☰</span> סינון ומיון</button><button type="button" class="clear-filters" disabled><span aria-hidden="true">↺</span> איפוס</button></div><span class="result-count" aria-live="polite"></span></div>
     <div class="table-scroll"><table>
+      <caption class="sr-only">השוואת טיסות אל על ישירות לצפון איטליה עבור שני מבוגרים, כולל תאריכים, מחירים ושעות</caption>
       <thead id="filter-row"><tr>
-        <th><div class="column-name">חודש</div><div class="column-tools"><select data-filter-column="0" aria-label="סינון חודש"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="none" aria-label="מיון חודש">↕</button></div></th>
-        <th><div class="column-name">תאריכים</div><div class="column-tools"><select data-filter-column="1" aria-label="סינון תאריכים"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="none" aria-label="מיון תאריכים">↕</button></div></th>
-        <th><div class="column-name">ימי השבוע</div><div class="column-tools"><select data-filter-column="2" aria-label="סינון ימי השבוע"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="2" data-direction="none" aria-label="מיון ימי השבוע">↕</button></div></th>
-        <th><div class="column-name">מחיר לזוג</div><div class="column-tools"><select data-filter-column="3" aria-label="סינון מחיר לזוג"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="3" data-direction="none" aria-label="מיון מחיר לזוג">↕</button></div></th>
-        <th><div class="column-name">מחיר לאדם</div><div class="column-tools"><select data-filter-column="4" aria-label="סינון מחיר לאדם"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="4" data-direction="none" aria-label="מיון מחיר לאדם">↕</button></div></th>
-        <th><div class="column-name">טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></div><div class="column-tools"><select data-filter-column="5" aria-label="סינון טיסת הלוך"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="5" data-direction="none" aria-label="מיון טיסת הלוך">↕</button></div></th>
-        <th><div class="column-name">טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></div><div class="column-tools"><select data-filter-column="6" aria-label="סינון טיסת חזור"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="6" data-direction="none" aria-label="מיון טיסת חזור">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">חודש</div><div class="column-tools"><select data-filter-column="0" aria-label="סינון חודש"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="none" aria-label="מיון חודש">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">תאריכים</div><div class="column-tools"><select data-filter-column="1" aria-label="סינון תאריכים"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="none" aria-label="מיון תאריכים">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">ימי השבוע</div><div class="column-tools"><select data-filter-column="2" aria-label="סינון ימי השבוע"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="2" data-direction="none" aria-label="מיון ימי השבוע">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">מחיר לזוג</div><div class="column-tools"><select data-filter-column="3" aria-label="סינון מחיר לזוג"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="3" data-direction="none" aria-label="מיון מחיר לזוג">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">מחיר לאדם</div><div class="column-tools"><select data-filter-column="4" aria-label="סינון מחיר לאדם"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="4" data-direction="none" aria-label="מיון מחיר לאדם">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></div><div class="column-tools"><select data-filter-column="5" aria-label="סינון טיסת הלוך"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="5" data-direction="none" aria-label="מיון טיסת הלוך">↕</button></div></th>
+        <th scope="col" aria-sort="none"><div class="column-name">טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></div><div class="column-tools"><select data-filter-column="6" aria-label="סינון טיסת חזור"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="6" data-direction="none" aria-label="מיון טיסת חזור">↕</button></div></th>
       </tr></thead>
       <tbody>
         <tr><td>ספטמבר 2026</td><td><div class="date-range"><bdi>20.09</bdi><span class="to">עד</span><bdi>27.09</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td>—</td></tr>
-        <tr><td>ספטמבר 2026</td><td><div class="date-range"><bdi>21.09</bdi><span class="to">עד</span><bdi>28.09</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא נמצאו מושבים</td><td class="unavailable">לא נמצאו מושבים</td><td>—</td><td>—</td></tr>
-        <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>18.10</bdi><span class="to">עד</span><bdi>25.10</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־3,859 ₪</span><span class="usd">$1,274.34</span></td><td class="price"><span class="ils">כ־1,930 ₪</span><span class="usd">$637.17</span></td><td><div class="flight"><bdi class="flight-no">LY 281</bdi><bdi class="flight-time">15:30–18:40</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
-        <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>19.10</bdi><span class="to">עד</span><bdi>26.10</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא נמצאו מושבים</td><td class="unavailable">לא נמצאו מושבים</td><td>—</td><td>—</td></tr>
+        <tr><td>ספטמבר 2026</td><td><div class="date-range"><bdi>21.09</bdi><span class="to">עד</span><bdi>28.09</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">לא נמצאו מושבים</td></tr>
+        <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>18.10</bdi><span class="to">עד</span><bdi>25.10</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־3,859 ₪</span><span class="usd">$1,274.34</span></td><td class="price"><span class="ils">כ־1,929 ₪</span><span class="usd">$637.17</span></td><td><div class="flight"><bdi class="flight-no">LY 281</bdi><bdi class="flight-time">15:30–18:40</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
+        <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>19.10</bdi><span class="to">עד</span><bdi>26.10</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">לא נמצאו מושבים</td></tr>
         <tr><td>נובמבר 2026</td><td><div class="date-range"><bdi>22.11</bdi><span class="to">עד</span><bdi>29.11</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,452 ₪</span><span class="usd">$1,470.34</span></td><td class="price"><span class="ils">כ־2,226 ₪</span><span class="usd">$735.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
-        <tr><td>נובמבר 2026</td><td><div class="date-range"><bdi>23.11</bdi><span class="to">עד</span><bdi>30.11</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">אין מסלול ישיר</td><td class="unavailable">אין מסלול ישיר</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
+        <tr><td>נובמבר 2026</td><td><div class="date-range"><bdi>23.11</bdi><span class="to">עד</span><bdi>30.11</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
         <tr><td>דצמבר 2026</td><td><div class="date-range"><bdi>20.12</bdi><span class="to">עד</span><bdi>27.12</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price best"><span class="ils">כ־3,574 ₪</span><span class="usd">$1,180.34</span></td><td class="price best"><span class="ils">כ־1,787 ₪</span><span class="usd">$590.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
-        <tr><td>דצמבר 2026</td><td><div class="date-range"><bdi>21.12</bdi><span class="to">עד</span><bdi>28.12</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">אין מסלול ישיר</td><td class="unavailable">אין מסלול ישיר</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
+        <tr><td>דצמבר 2026</td><td><div class="date-range"><bdi>21.12</bdi><span class="to">עד</span><bdi>28.12</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
         <tr><td>ינואר 2027</td><td><div class="date-range"><bdi>24.01</bdi><span class="to">עד</span><bdi>31.01</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,664 ₪</span><span class="usd">$1,540.34</span></td><td class="price"><span class="ils">כ־2,332 ₪</span><span class="usd">$770.17</span></td><td><div class="flight"><bdi class="flight-no">LY 387</bdi><bdi class="flight-time">17:00–20:20</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
-        <tr><td>ינואר 2027</td><td><div class="date-range"><bdi>18.01</bdi><span class="to">עד</span><bdi>25.01</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">אין מסלול ישיר</td><td class="unavailable">אין מסלול ישיר</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
+        <tr><td>ינואר 2027</td><td><div class="date-range"><bdi>18.01</bdi><span class="to">עד</span><bdi>25.01</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
         <tr><td>פברואר 2027</td><td><div class="date-range"><bdi>21.02</bdi><span class="to">עד</span><bdi>28.02</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,845 ₪</span><span class="usd">$1,930.34</span></td><td class="price"><span class="ils">כ־2,923 ₪</span><span class="usd">$965.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td></tr>
-        <tr><td>פברואר 2027</td><td><div class="date-range"><bdi>15.02</bdi><span class="to">עד</span><bdi>22.02</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">אין מסלול ישיר</td><td class="unavailable">אין מסלול ישיר</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
+        <tr><td>פברואר 2027</td><td><div class="date-range"><bdi>15.02</bdi><span class="to">עד</span><bdi>22.02</bdi></div></td><td class="days">שני עד שני</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td class="unavailable">אין טיסה ישירה</td></tr>
         <tr><td>מרץ 2027</td><td><div class="date-range"><bdi>21.03</bdi><span class="to">עד</span><bdi>28.03</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,452 ₪</span><span class="usd">$1,470.34</span></td><td class="price"><span class="ils">כ־2,226 ₪</span><span class="usd">$735.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
         <tr><td>מרץ 2027</td><td><div class="date-range"><bdi>22.03</bdi><span class="to">עד</span><bdi>29.03</bdi></div></td><td class="days">שני עד שני</td><td class="price best"><span class="ils">כ־3,150 ₪</span><span class="usd">$1,040.34</span></td><td class="price best"><span class="ils">כ־1,575 ₪</span><span class="usd">$520.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:40–10:00</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
         <tr><td>אפריל 2027</td><td><div class="date-range"><bdi>18.04</bdi><span class="to">עד</span><bdi>25.04</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,215 ₪</span><span class="usd">$1,722.34</span></td><td class="price"><span class="ils">כ־2,608 ₪</span><span class="usd">$861.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
         <tr><td>אפריל 2027</td><td><div class="date-range"><bdi>19.04</bdi><span class="to">עד</span><bdi>26.04</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,686 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
-        <tr><td>מאי 2027</td><td><div class="date-range"><bdi>23.05</bdi><span class="to">עד</span><bdi>30.05</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,687 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
+        <tr><td>מאי 2027</td><td><div class="date-range"><bdi>23.05</bdi><span class="to">עד</span><bdi>30.05</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,686 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
         <tr><td>מאי 2027</td><td><div class="date-range"><bdi>24.05</bdi><span class="to">עד</span><bdi>31.05</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,785 ₪</span><span class="usd">$1,580.34</span></td><td class="price"><span class="ils">כ־2,393 ₪</span><span class="usd">$790.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
         <tr><td>יוני 2027</td><td><div class="date-range"><bdi>20.06</bdi><span class="to">עד</span><bdi>27.06</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,591 ₪</span><span class="usd">$1,516.34</span></td><td class="price"><span class="ils">כ־2,296 ₪</span><span class="usd">$758.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
         <tr><td>יוני 2027</td><td><div class="date-range"><bdi>21.06</bdi><span class="to">עד</span><bdi>28.06</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,337 ₪</span><span class="usd">$1,432.34</span></td><td class="price"><span class="ils">כ־2,169 ₪</span><span class="usd">$716.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
@@ -241,7 +247,7 @@
     </table></div>
     <p class="empty-state" hidden>לא נמצאו תוצאות. אפשר לאפס את הסינון ולנסות שוב.</p>
   </section>
-  <p class="source">מחירי אל על למסלולי ראשון–ראשון ושני–שני נבדקו ב־20 בספטמבר 2026. המחירים בשקלים הם בקירוב, לפי שער <bdi dir="ltr">$1 = 3.0280 ₪</bdi> של בנק ישראל מ־18 בספטמבר 2026.</p>
+  <p class="source">מחירי אל על למסלולי ראשון–ראשון ושני–שני נבדקו ב־20 בספטמבר 2026. "לא זמין" מציין שלא נמצא שילוב טיסות ישיר מלא; כאשר הסיבה ידועה היא מופיעה בעמודת החזור. המחירים בשקלים הם בקירוב, לפי שער <bdi dir="ltr">$1 = 3.0280 ₪</bdi> של בנק ישראל מ־18 בספטמבר 2026.</p>
 </main>
 <script>
   const rows = [...document.querySelectorAll('tbody tr')];
@@ -252,6 +258,7 @@
   const tbody = document.querySelector('tbody');
   const filterRow = document.querySelector('thead');
   const mobileFilterToggle = document.querySelector('.mobile-filter-toggle');
+  const clearButton = document.querySelector('.clear-filters');
   let activeSortLabel = '';
   rows.forEach((row, index) => { row.dataset.originalIndex = index; });
   sortButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
@@ -261,7 +268,15 @@
   filters.forEach(select => {
     const column = Number(select.dataset.filterColumn);
     const values = [...new Set(rows.map(row => cleanText(row.cells[column].innerText)))];
-    values.sort((a, b) => a.localeCompare(b, 'he', { numeric: true }));
+    if ([3, 4].includes(column)) {
+      const numericPrice = value => {
+        const match = value.match(/[\d,]+(?= ₪)/);
+        return match ? Number(match[0].replace(/,/g, '')) : Number.POSITIVE_INFINITY;
+      };
+      values.sort((a, b) => numericPrice(a) - numericPrice(b));
+    } else if ([5, 6].includes(column)) {
+      values.sort((a, b) => a.localeCompare(b, 'he', { numeric:true }));
+    }
     values.forEach(value => {
       const option = document.createElement('option');
       option.value = value;
@@ -393,6 +408,7 @@
     });
     emptyState.hidden = visible !== 0;
     resultCount.textContent = `${visible} מתוך ${rows.length} תוצאות${activeSortLabel ? ` · ${activeSortLabel}` : ''}`;
+    clearButton.disabled = !activeSortLabel && filters.every(select => !select.value);
   }
 
   filters.forEach(select => select.addEventListener('change', applyFilters));
@@ -407,6 +423,9 @@
       item.setAttribute('aria-pressed', 'false');
       item.dataset.direction = 'none';
       item.textContent = '↕';
+      item.closest('th').setAttribute('aria-sort', 'none');
+      const itemColumn = cleanText(item.closest('th').querySelector('.column-name').innerText);
+      item.setAttribute('aria-label', `מיון ${itemColumn}`);
     });
 
     if (nextDirection === 'none') {
@@ -438,12 +457,14 @@
       button.dataset.direction = nextDirection;
       button.textContent = nextDirection === 'asc' ? '↑' : '↓';
       const columnName = cleanText(button.closest('th').querySelector('.column-name').innerText);
+      button.closest('th').setAttribute('aria-sort', nextDirection === 'asc' ? 'ascending' : 'descending');
+      button.setAttribute('aria-label', `מיון ${columnName}: ${nextDirection === 'asc' ? 'עולה' : 'יורד'}`);
       activeSortLabel = `${columnName}: ${nextDirection === 'asc' ? 'עולה' : 'יורד'}`;
     }
     rows.forEach(row => tbody.appendChild(row));
     applyFilters();
   }));
-  document.querySelector('.clear-filters').addEventListener('click', () => {
+  clearButton.addEventListener('click', () => {
     filters.forEach(select => {
       select.value = '';
       select.dispatchEvent(new Event('change'));
@@ -455,6 +476,9 @@
       button.setAttribute('aria-pressed', 'false');
       button.dataset.direction = 'none';
       button.textContent = '↕';
+      button.closest('th').setAttribute('aria-sort', 'none');
+      const columnName = cleanText(button.closest('th').querySelector('.column-name').innerText);
+      button.setAttribute('aria-label', `מיון ${columnName}`);
     });
     activeSortLabel = '';
     applyFilters();
