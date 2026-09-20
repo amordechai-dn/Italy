@@ -38,7 +38,7 @@ main {
   gap: 24px;
   margin-block-end: 16px;
   padding: 9px 14px 0;
-  direction: rtl;
+  direction: ltr;
   text-align: start;
   border: 1px solid color-mix(in srgb,var(--line) 85%,var(--blue));
   border-radius: 16px;
@@ -51,10 +51,12 @@ main {
 .site-brand {
   display: flex;
   align-items: center;
+  justify-self: start;
   gap: 10px;
   min-width: 0;
   padding-block-end: 9px;
   color: var(--text);
+  direction: rtl;
   text-decoration: none;
 }
 
@@ -186,7 +188,7 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
 @media (max-width: 760px) {
   main { width: min(100% - 20px,720px); padding-block: 16px 30px; }
   .site-header { top: 6px; grid-template-columns: 1fr; gap: 0; padding: 9px 10px 0; border-radius: 14px; }
-  .site-brand { padding: 0 3px 8px; }
+  .site-brand { justify-self: stretch; padding: 0 3px 8px; }
   .brand-mark { width: 34px; height: 34px; flex-basis: 34px; }
   .page-tabs { width: 100%; border-top: 1px solid var(--line); }
   .page-tab { flex: 1; min-width: 0; padding: 10px 8px 11px; }
