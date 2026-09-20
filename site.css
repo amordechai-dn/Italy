@@ -158,6 +158,49 @@ main {
   letter-spacing: -.035em;
 }
 
+/* Editorial content stays on the page; containers are reserved for controls and data. */
+.quick-summary {
+  padding: 16px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.recommendation {
+  margin-block-start: 18px;
+  padding: 18px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.recommendation .icon { background: transparent; }
+
+.month-grid {
+  gap: 0;
+  border-block: 1px solid var(--line);
+}
+.month-card {
+  padding: 22px 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.month-card + .month-card { border-inline-start: 1px solid var(--line); }
+
+.decision {
+  margin-block-start: 0;
+  padding: 16px 4px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+}
+
 .section-title,
 .section-heading {
   margin: 32px 4px 12px;
@@ -195,6 +238,12 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
   .page-tab::after { inset-inline: 8px; }
   .hero { height: auto; min-height: 0; padding: 24px 20px; border-radius: 20px; }
   .hero h1 { font-size: 29px; }
+  .quick-summary { padding-inline: 2px; }
+  .recommendation { padding-inline: 2px; }
+  .month-grid { gap: 0; }
+  .month-card { padding: 18px 2px; }
+  .month-card + .month-card { border-inline-start: 0; border-top: 1px solid var(--line); }
+  .decision { padding-inline: 2px; }
   .section-title,
   .section-heading { margin: 24px 4px 10px; }
   .section-title,
