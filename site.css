@@ -1,5 +1,5 @@
 :root {
-  --site-max-width: 1920px;
+  --site-max-width: 1320px;
   --site-gutter: clamp(10px,1.25vw,24px);
   --site-radius: 20px;
   --site-font: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
@@ -8,6 +8,10 @@
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  overflow-x: hidden;
   margin: 0;
   color: var(--text);
   direction: rtl;
@@ -15,9 +19,19 @@ body {
   font-family: var(--site-font);
   font-size: 16px;
   line-height: 1.55;
+  background: var(--bg);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
   background:
-    radial-gradient(circle at 85% -5%, rgba(58,112,226,.16), transparent 30rem),
-    var(--bg);
+    radial-gradient(circle at 5% 18%, rgba(58,112,226,.13), transparent 28rem),
+    radial-gradient(circle at 95% 72%, color-mix(in srgb,var(--good) 7%,transparent), transparent 26rem),
+    linear-gradient(90deg, rgba(58,112,226,.035), transparent 24%, transparent 76%, rgba(58,112,226,.035));
 }
 
 *,
@@ -47,10 +61,25 @@ main {
   direction: rtl;
   text-align: start;
   border: 0;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
   border-radius: 0;
-  background: color-mix(in srgb,var(--bg) 88%,transparent);
+  background: transparent;
   box-shadow: none;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: -1px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb,var(--bg) 88%,transparent);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
@@ -153,10 +182,23 @@ main {
   height: auto;
   padding: 42px 4px 38px;
   color: var(--text);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 0;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: -1px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  pointer-events: none;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb,var(--blue) 3%,transparent) 28%, color-mix(in srgb,var(--blue) 3%,transparent) 72%, transparent);
 }
 .hero::after {
   content: "";
