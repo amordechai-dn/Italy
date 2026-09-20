@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>השוואת טיסות אל על לצפון איטליה</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f7f8fa; --panel:#fff; --text:#17213a; --muted:#667085; --line:#d9dfeb; --blue:#173f8f; --good:#147a52; --warn:#a45f00; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#101522; --panel:#171e2e; --text:#edf2ff; --muted:#a9b2c7; --line:#303a50; --blue:#8fb5ff; --good:#64d5a5; --warn:#ffc36b; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--text); font-family:Arial,Helvetica,sans-serif; line-height:1.5; }
+    main { max-width:1280px; margin:auto; padding:28px 18px 40px; }
+    h1 { margin:0 0 6px; font-size:30px; color:var(--blue); }
+    .subtitle,.source { color:var(--muted); }
+    .subtitle { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; }
+    .subtitle span { white-space:nowrap; }
+    .table-wrap { margin-top:22px; overflow:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+    table { width:100%; border-collapse:collapse; min-width:1080px; }
+    th,td { padding:14px 12px; text-align:right; border-bottom:1px solid var(--line); vertical-align:middle; }
+    th { background:var(--bg); position:sticky; top:0; }
+    tbody tr:last-child td { border-bottom:0; }
+    tbody tr:hover { background:color-mix(in srgb, var(--blue) 5%, transparent); }
+    .best { color:var(--good); font-weight:700; }
+    .unavailable { color:var(--warn); font-weight:700; }
+    .price { font-weight:700; }
+    .ils { display:block; font-size:16px; }
+    .usd { display:block; color:var(--muted); font-size:13px; font-weight:400; direction:ltr; text-align:right; }
+    .date-range { display:flex; align-items:center; justify-content:flex-end; gap:5px; direction:ltr; white-space:nowrap; }
+    .date-range .to { color:var(--text); font-size:inherit; direction:rtl; }
+    .date-range bdi,.flight bdi { direction:ltr; unicode-bidi:isolate; }
+    .days { white-space:nowrap; }
+    .flight { display:grid; gap:3px; direction:ltr; text-align:left; white-space:nowrap; }
+    .flight-no { color:var(--blue); font-weight:700; }
+    .flight-time { font-variant-numeric:tabular-nums; }
+    .next-day { color:var(--muted); font-size:12px; direction:rtl; text-align:right; }
+    .route { direction:ltr; unicode-bidi:isolate; white-space:nowrap; display:inline-block; }
+    .notes { margin:18px 0 0; padding:0 18px 0 0; }
+    .notes li { margin:5px 0; }
+    .source { font-size:13px; margin-top:16px; }
+    @media (max-width:760px) {
+      main { padding:18px 12px 30px; }
+      h1 { font-size:24px; line-height:1.25; }
+      .subtitle { gap:4px 12px; font-size:14px; }
+      .table-wrap { overflow:visible; border:0; background:transparent; }
+      table,tbody,tr,td { display:block; width:100%; }
+      table { min-width:0; }
+      thead { display:none; }
+      tbody tr { margin-bottom:14px; padding:4px 14px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+      tbody tr:hover { background:var(--panel); }
+      td { display:grid; grid-template-columns:minmax(105px, 38%) 1fr; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); white-space:normal; }
+      td:last-child { border-bottom:0; }
+      td::before { color:var(--muted); font-size:13px; font-weight:700; }
+      td:nth-child(1)::before { content:"חודש"; }
+      td:nth-child(2)::before { content:"תאריכים"; }
+      td:nth-child(3)::before { content:"ימי השבוע"; }
+      td:nth-child(4)::before { content:"מחיר לזוג"; }
+      td:nth-child(5)::before { content:"מחיר לאדם"; }
+      td:nth-child(6)::before { content:"טיסת הלוך"; }
+      td:nth-child(7)::before { content:"טיסת חזור"; }
+      td:nth-child(8)::before { content:"הערה"; }
+      .date-range { justify-content:flex-start; }
+      .flight { justify-self:start; }
+      .usd { text-align:right; }
+      .notes { margin-top:20px; }
+      .source { line-height:1.65; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>השוואת טיסות אל על לצפון איטליה</h1>
+  <div class="subtitle">
+    <span>2 מבוגרים</span><span>7 לילות</span><span>טיסות ישירות בלבד</span>
+    <span>מסלול קלאסיק כולל מזוודה</span>
+    <span class="route" dir="ltr">TLV → MXP&nbsp;&nbsp;|&nbsp;&nbsp;VCE → TLV</span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>חודש</th><th>תאריכים</th><th>ימי השבוע</th><th>מחיר לזוג</th><th>מחיר לאדם</th><th>טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></th><th>טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></th><th>הערה</th></tr></thead>
+      <tbody>
+        <tr><td>ספטמבר 2026</td><td><div class="date-range"><bdi>20.09</bdi><span class="to">עד</span><bdi>27.09</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td>—</td><td>אין מושבים</td></tr>
+        <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>18.10</bdi><span class="to">עד</span><bdi>25.10</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־3,859 ₪</span><span class="usd">$1,274.34</span></td><td class="price"><span class="ils">כ־1,930 ₪</span><span class="usd">$637.17</span></td><td><div class="flight"><bdi class="flight-no">LY 281</bdi><bdi class="flight-time">15:30–18:40</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td>—</td></tr>
+        <tr><td>נובמבר 2026</td><td><div class="date-range"><bdi>22.11</bdi><span class="to">עד</span><bdi>29.11</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,452 ₪</span><span class="usd">$1,470.34</span></td><td class="price"><span class="ils">כ־2,226 ₪</span><span class="usd">$735.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td>—</td></tr>
+        <tr><td>דצמבר 2026</td><td><div class="date-range"><bdi>20.12</bdi><span class="to">עד</span><bdi>27.12</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price best"><span class="ils">כ־3,574 ₪</span><span class="usd">$1,180.34</span></td><td class="price best"><span class="ils">כ־1,787 ₪</span><span class="usd">$590.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td class="best">הזול ביותר</td></tr>
+        <tr><td>ינואר 2027</td><td><div class="date-range"><bdi>24.01</bdi><span class="to">עד</span><bdi>31.01</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,664 ₪</span><span class="usd">$1,540.34</span></td><td class="price"><span class="ils">כ־2,332 ₪</span><span class="usd">$770.17</span></td><td><div class="flight"><bdi class="flight-no">LY 387</bdi><bdi class="flight-time">17:00–20:20</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td>הטיסה המוקדמת זמינה במסלול Flex בלבד</td></tr>
+        <tr><td>פברואר 2027</td><td><div class="date-range"><bdi>21.02</bdi><span class="to">עד</span><bdi>28.02</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,845 ₪</span><span class="usd">$1,930.34</span></td><td class="price"><span class="ils">כ־2,923 ₪</span><span class="usd">$965.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td>היקר ביותר</td></tr>
+        <tr><td>מרץ 2027</td><td><div class="date-range"><bdi>21.03</bdi><span class="to">עד</span><bdi>28.03</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,452 ₪</span><span class="usd">$1,470.34</span></td><td class="price"><span class="ils">כ־2,226 ₪</span><span class="usd">$735.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">06:25–09:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td><td>איזון טוב בין המחיר לשעות</td></tr>
+        <tr><td>אפריל 2027</td><td><div class="date-range"><bdi>18.04</bdi><span class="to">עד</span><bdi>25.04</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,215 ₪</span><span class="usd">$1,722.34</span></td><td class="price"><span class="ils">כ־2,608 ₪</span><span class="usd">$861.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td><td>—</td></tr>
+        <tr><td>מאי 2027</td><td><div class="date-range"><bdi>23.05</bdi><span class="to">עד</span><bdi>30.05</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,687 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td><td>מתאים לתכנון המקורי</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <ul class="notes">
+    <li><strong>הכי זול:</strong> דצמבר — כ־<bdi dir="ltr">3,574 ₪</bdi> לזוג.</li>
+    <li><strong>המלצה כללית:</strong> מרץ — מחיר בינוני, הלוך מוקדם וחזור מאוחר.</li>
+    <li><strong>מאי:</strong> כ־<bdi dir="ltr">5,373 ₪</bdi> לזוג.</li>
+  </ul>
+  <p class="source">מקור מחירי הטיסות: אתר אל על · נבדק ב־20 בספטמבר 2026. ההמרה לשקלים חושבה לפי השער היציג האחרון של בנק ישראל: <bdi dir="ltr">$1 = 3.0280 ₪</bdi>, מעודכן ל־18 בספטמבר 2026. הסכומים בשקלים מעוגלים ועשויים להיות שונים מחיוב חברת האשראי.</p>
+</main>
+</body>
+</html>
