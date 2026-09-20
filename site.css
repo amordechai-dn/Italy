@@ -1,10 +1,11 @@
 :root {
-  --site-max-width: 1680px;
+  --site-max-width: 1920px;
+  --site-gutter: clamp(10px,1.25vw,24px);
   --site-radius: 20px;
   --site-font: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
 body {
   margin: 0;
@@ -27,9 +28,10 @@ button,
 select { font: inherit; }
 
 main {
-  width: min(100% - 40px, var(--site-max-width));
+  width: 100%;
+  max-width: var(--site-max-width);
   margin-inline: auto;
-  padding-block: 0 48px;
+  padding: 0 var(--site-gutter) 48px;
 }
 
 .site-header {
@@ -148,7 +150,7 @@ main {
   flex-direction: column;
   justify-content: center;
   min-height: 224px;
-  height: 224px;
+  height: auto;
   padding: 42px 4px 38px;
   color: var(--text);
   border-bottom: 1px solid var(--line);
@@ -299,15 +301,22 @@ tbody tr:last-child td { border-bottom: 0; }
 .source { margin: 16px 4px 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
 .source a { color: var(--blue); }
 
+@media (max-width: 1100px) and (min-width: 761px) {
+  .site-header { gap: 16px; }
+  .page-tab { min-width: 118px; }
+  .hero { min-height: 216px; padding-block: 36px 34px; }
+  .hero h1 { font-size: clamp(34px,5vw,48px); }
+}
+
 @media (max-width: 760px) {
-  main { width: min(100% - 20px,720px); padding-block: 0 30px; }
+  main { width: 100%; max-width: none; padding: 0 10px 30px; }
   .site-header { top: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 10px 2px 0; border-radius: 0; }
   .site-brand { padding: 0 3px 9px; }
   .brand-mark { width: 34px; height: 34px; flex-basis: 34px; }
   .page-tabs { width: 100%; border-top: 1px solid var(--line); }
   .page-tab { flex: 1; min-width: 0; padding: 10px 8px 11px; }
   .page-tab::after { inset-inline: 8px; }
-  .hero { height: 218px; min-height: 218px; padding: 30px 2px; border-radius: 0; }
+  .hero { height: auto; min-height: 218px; padding: 30px 2px; border-radius: 0; }
   .hero h1 { font-size: 34px; }
   .hero > p:not(.eyebrow) { margin-top: 13px; font-size: 14px; }
   .hero .trip-strip { display: grid; gap: 8px; margin-top: 18px; }
@@ -354,6 +363,13 @@ tbody tr:last-child td { border-bottom: 0; }
   .flight-no { font-size: 14px; }
   .flight-time { font-size: 17px; }
   .next-day { font-size: 13px; }
+}
+
+@media (max-width: 420px) {
+  .site-brand-copy strong { font-size: 13px; }
+  .site-brand-copy small { font-size: 10px; }
+  .page-tab { padding-inline: 6px; font-size: 12px; }
+  .hero h1 { font-size: clamp(29px,9vw,34px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
