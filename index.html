@@ -95,6 +95,8 @@
     th,td { padding:15px 13px; text-align:right; border-bottom:1px solid var(--line); vertical-align:middle; }
     th { min-width:145px; position:sticky; top:0; z-index:2; background:var(--panel-soft); color:var(--text); font-size:13px; font-weight:850; }
     th:first-child,td:first-child { padding-right:18px; }
+    th.index-col,td.index-cell { width:58px; min-width:58px; text-align:center; padding-inline:10px; }
+    td.index-cell { color:var(--muted); font-weight:800; font-variant-numeric:tabular-nums; }
     tbody tr { transition:background .18s ease; }
     tbody tr:nth-child(even) { background:color-mix(in srgb,var(--panel-soft) 58%,transparent); }
     tbody tr:hover { background:color-mix(in srgb,var(--blue-soft) 72%,transparent); }
@@ -151,10 +153,11 @@
       td { display:grid; grid-template-columns:minmax(105px,34%) 1fr; gap:10px; align-items:center; padding:10px 0!important; border-bottom:1px solid var(--line); white-space:normal; }
       td:last-child { border-bottom:0; }
       td::before { color:var(--muted); font-size:12px; font-weight:800; }
-      td:nth-child(1)::before { content:"חודש"; } td:nth-child(2)::before { content:"תאריכים"; }
-      td:nth-child(3)::before { content:"ימי השבוע"; } td:nth-child(4)::before { content:"מחיר לזוג"; }
-      td:nth-child(5)::before { content:"מחיר לאדם"; } td:nth-child(6)::before { content:"טיסת הלוך"; }
-      td:nth-child(7)::before { content:"טיסת חזור"; }
+      th.index-col,td.index-cell { width:100%; min-width:0; text-align:right; padding-inline:0; }
+      td:nth-child(1)::before { content:"מספר"; } td:nth-child(2)::before { content:"חודש"; }
+      td:nth-child(3)::before { content:"תאריכים"; } td:nth-child(4)::before { content:"ימי השבוע"; }
+      td:nth-child(5)::before { content:"מחיר לזוג"; } td:nth-child(6)::before { content:"מחיר לאדם"; }
+      td:nth-child(7)::before { content:"טיסת הלוך"; } td:nth-child(8)::before { content:"טיסת חזור"; }
       .date-range { justify-content:flex-start; } .flight { justify-self:start; } .usd { text-align:right; }
       .result-count { font-size:11px; }
     }
@@ -207,6 +210,7 @@
     <div class="table-scroll"><table>
       <caption class="sr-only">השוואת טיסות אל על ישירות לצפון איטליה עבור שני מבוגרים, כולל תאריכים, מחירים ושעות</caption>
       <thead><tr>
+        <th scope="col" class="index-col" aria-label="מספר סידורי">מס׳</th>
         <th scope="col">חודש</th>
         <th scope="col">תאריכים</th>
         <th scope="col">ימי השבוע</th>
@@ -265,10 +269,14 @@
     sort: document.querySelector('#sort-results')
   };
   const filterControls = [controls.month, controls.days, controls.availability, controls.maxPrice, controls.outbound, controls.returnFlight];
-  rows.forEach((row, index) => { row.dataset.originalIndex = index; });
+  rows.forEach((row, index) => {
+    row.dataset.originalIndex = index;
+    const indexCell = row.insertCell(0);
+    indexCell.className = 'index-cell';
+  });
   const cleanText = value => value.replace(/\s+/g, ' ').trim();
   const rowPrice = row => {
-    const value = row.cells[3].querySelector('.ils');
+    const value = row.cells[4].querySelector('.ils');
     return value ? Number(value.textContent.replace(/\D/g, '')) : null;
   };
   const rowTime = (row, column) => {
@@ -282,7 +290,7 @@
     return (a - b) * direction;
   };
 
-  [...new Set(rows.map(row => cleanText(row.cells[0].innerText)))].forEach(month => {
+  [...new Set(rows.map(row => cleanText(row.cells[1].innerText)))].forEach(month => {
     const option = document.createElement('option');
     option.value = month;
     option.textContent = month;
@@ -295,8 +303,8 @@
       if (mode === 'date-desc') return Number(b.dataset.originalIndex) - Number(a.dataset.originalIndex);
       if (mode === 'price-asc') return compareNullable(rowPrice(a), rowPrice(b));
       if (mode === 'price-desc') return compareNullable(rowPrice(a), rowPrice(b), -1);
-      if (mode === 'outbound-asc') return compareNullable(rowTime(a, 5), rowTime(b, 5));
-      if (mode === 'return-desc') return compareNullable(rowTime(a, 6), rowTime(b, 6), -1);
+      if (mode === 'outbound-asc') return compareNullable(rowTime(a, 6), rowTime(b, 6));
+      if (mode === 'return-desc') return compareNullable(rowTime(a, 7), rowTime(b, 7), -1);
       return Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
     });
     rows.forEach(row => tbody.appendChild(row));
@@ -307,18 +315,21 @@
     let visible = 0;
     rows.forEach(row => {
       const price = rowPrice(row);
-      const outboundTime = rowTime(row, 5);
-      const returnTime = rowTime(row, 6);
+      const outboundTime = rowTime(row, 6);
+      const returnTime = rowTime(row, 7);
       const isAvailable = price !== null;
       const matches =
-        (!controls.month.value || cleanText(row.cells[0].innerText) === controls.month.value) &&
-        (!controls.days.value || cleanText(row.cells[2].innerText) === controls.days.value) &&
+        (!controls.month.value || cleanText(row.cells[1].innerText) === controls.month.value) &&
+        (!controls.days.value || cleanText(row.cells[3].innerText) === controls.days.value) &&
         (!controls.availability.value || (controls.availability.value === 'available' ? isAvailable : !isAvailable)) &&
         (!controls.maxPrice.value || (price !== null && price <= Number(controls.maxPrice.value))) &&
         (!controls.outbound.value || (outboundTime !== null && (controls.outbound.value === 'morning' ? outboundTime < 600 : outboundTime >= 720))) &&
         (!controls.returnFlight.value || (returnTime !== null && (controls.returnFlight.value === 'morning' ? returnTime < 720 : returnTime >= 1080)));
       row.hidden = !matches;
-      if (matches) visible += 1;
+      if (matches) {
+        visible += 1;
+        row.cells[0].textContent = visible;
+      }
     });
     emptyState.hidden = visible !== 0;
     resultCount.textContent = `${visible} מתוך ${rows.length} אפשרויות`;
