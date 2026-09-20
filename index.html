@@ -14,24 +14,20 @@
     .subtitle,.source { color:var(--muted); }
     .subtitle { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; }
     .subtitle span { white-space:nowrap; }
-    .filter-panel { margin-top:22px; padding:16px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
-    .filter-panel h2 { margin:0; font-size:19px; }
-    .filter-help { margin:4px 0 14px; color:var(--muted); font-size:13px; }
-    .filters { display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:12px; }
-    .filter-field { display:grid; gap:5px; color:var(--muted); font-size:13px; font-weight:700; }
-    .filter-control { display:grid; grid-template-columns:minmax(0,1fr) 36px 36px; gap:5px; }
-    .filter-field select { width:100%; min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); font:inherit; font-weight:400; }
+    .column-name { min-height:42px; font-weight:700; }
+    .column-tools { display:grid; grid-template-columns:minmax(0,1fr) 32px 32px; gap:4px; margin-top:8px; }
+    .column-tools select { width:100%; min-width:0; padding:7px 8px; border:1px solid var(--line); border-radius:6px; background:var(--panel); color:var(--text); font:inherit; font-size:12px; font-weight:400; }
     .sort-button { border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-size:17px; }
     .sort-button:hover,.sort-button.active { border-color:var(--blue); color:var(--blue); background:color-mix(in srgb, var(--blue) 10%, var(--bg)); font-weight:700; }
-    .filter-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; }
+    .table-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px; border-bottom:1px solid var(--line); }
     .clear-filters { padding:8px 14px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-weight:700; }
     .clear-filters:hover { border-color:var(--blue); }
     .result-count { color:var(--muted); font-size:14px; }
     [hidden] { display:none !important; }
     .table-wrap { margin-top:22px; overflow:auto; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
-    table { width:100%; border-collapse:collapse; min-width:1080px; }
+    table { width:100%; border-collapse:collapse; min-width:1420px; }
     th,td { padding:14px 12px; text-align:right; border-bottom:1px solid var(--line); vertical-align:middle; }
-    th { background:var(--bg); position:sticky; top:0; }
+    th { min-width:165px; background:var(--bg); position:sticky; top:0; z-index:1; }
     tbody tr:last-child td { border-bottom:0; }
     tbody tr:hover { background:color-mix(in srgb, var(--blue) 5%, transparent); }
     .best { color:var(--good); font-weight:700; }
@@ -51,18 +47,20 @@
     .notes { margin:18px 0 0; padding:0 18px 0 0; }
     .notes li { margin:5px 0; }
     .source { font-size:13px; margin-top:16px; }
-    @media (max-width:1000px) { .filters { grid-template-columns:1fr 1fr; } }
     @media (max-width:760px) {
       main { padding:18px 12px 30px; }
       h1 { font-size:24px; line-height:1.25; }
       .subtitle { gap:4px 12px; font-size:14px; }
-      .filter-panel { padding:14px; }
-      .filters { grid-template-columns:1fr; gap:10px; }
-      .filter-actions { align-items:flex-start; flex-direction:column; }
       .table-wrap { overflow:visible; border:0; background:transparent; }
-      table,tbody,tr,td { display:block; width:100%; }
+      .table-toolbar { margin-bottom:12px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+      table,thead,tbody,thead tr,tbody tr,th,td { display:block; width:100%; }
       table { min-width:0; }
-      thead { display:none; }
+      thead { margin-bottom:14px; padding:8px 14px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
+      thead tr { display:grid; gap:0; }
+      th { display:grid; grid-template-columns:minmax(105px,38%) 1fr; gap:12px; align-items:center; min-width:0; padding:8px 0; border-bottom:1px solid var(--line); background:transparent; position:static; }
+      th:last-child { border-bottom:0; }
+      .column-name { min-height:0; }
+      .column-tools { margin-top:0; }
       tbody tr { margin-bottom:14px; padding:4px 14px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
       tbody tr:hover { background:var(--panel); }
       td { display:grid; grid-template-columns:minmax(105px, 38%) 1fr; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); white-space:normal; }
@@ -93,28 +91,19 @@
     <span class="route" dir="ltr">TLV → MXP&nbsp;&nbsp;|&nbsp;&nbsp;VCE → TLV</span>
   </div>
 
-  <section class="filter-panel" aria-labelledby="filter-title">
-    <h2 id="filter-title">מיון וסינון לפי עמודה</h2>
-    <p class="filter-help">בחר ערך לסינון, או השתמש בחצים כדי למיין. ניתן לשלב כמה מסננים יחד.</p>
-    <div class="filters">
-      <label class="filter-field">חודש<span class="filter-control"><select data-filter-column="0"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="asc" aria-label="מיון חודש בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="0" data-direction="desc" aria-label="מיון חודש בסדר יורד">↓</button></span></label>
-      <label class="filter-field">תאריכים<span class="filter-control"><select data-filter-column="1"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="asc" aria-label="מיון תאריכים בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="1" data-direction="desc" aria-label="מיון תאריכים בסדר יורד">↓</button></span></label>
-      <label class="filter-field">ימי השבוע<span class="filter-control"><select data-filter-column="2"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="2" data-direction="asc" aria-label="מיון ימי השבוע בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="2" data-direction="desc" aria-label="מיון ימי השבוע בסדר יורד">↓</button></span></label>
-      <label class="filter-field">מחיר לזוג<span class="filter-control"><select data-filter-column="3"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="3" data-direction="asc" aria-label="מיון מחיר לזוג מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="3" data-direction="desc" aria-label="מיון מחיר לזוג מהגבוה לנמוך">↓</button></span></label>
-      <label class="filter-field">מחיר לאדם<span class="filter-control"><select data-filter-column="4"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="4" data-direction="asc" aria-label="מיון מחיר לאדם מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="4" data-direction="desc" aria-label="מיון מחיר לאדם מהגבוה לנמוך">↓</button></span></label>
-      <label class="filter-field">טיסת הלוך<span class="filter-control"><select data-filter-column="5"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="5" data-direction="asc" aria-label="מיון טיסת הלוך בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="5" data-direction="desc" aria-label="מיון טיסת הלוך בסדר יורד">↓</button></span></label>
-      <label class="filter-field">טיסת חזור<span class="filter-control"><select data-filter-column="6"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="6" data-direction="asc" aria-label="מיון טיסת חזור בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="6" data-direction="desc" aria-label="מיון טיסת חזור בסדר יורד">↓</button></span></label>
-      <label class="filter-field">הערה<span class="filter-control"><select data-filter-column="7"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="7" data-direction="asc" aria-label="מיון הערה בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="7" data-direction="desc" aria-label="מיון הערה בסדר יורד">↓</button></span></label>
-    </div>
-    <div class="filter-actions">
-      <button type="button" class="clear-filters">ניקוי כל המסננים</button>
-      <span class="result-count" aria-live="polite"></span>
-    </div>
-  </section>
-
   <div class="table-wrap">
+    <div class="table-toolbar"><button type="button" class="clear-filters">איפוס מיון וסינון</button><span class="result-count" aria-live="polite"></span></div>
     <table>
-      <thead><tr><th>חודש</th><th>תאריכים</th><th>ימי השבוע</th><th>מחיר לזוג</th><th>מחיר לאדם</th><th>טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></th><th>טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></th><th>הערה</th></tr></thead>
+      <thead><tr>
+        <th><div class="column-name">חודש</div><div class="column-tools"><select data-filter-column="0" aria-label="סינון חודש"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="asc" aria-label="מיון חודש בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="0" data-direction="desc" aria-label="מיון חודש בסדר יורד">↓</button></div></th>
+        <th><div class="column-name">תאריכים</div><div class="column-tools"><select data-filter-column="1" aria-label="סינון תאריכים"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="asc" aria-label="מיון תאריכים בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="1" data-direction="desc" aria-label="מיון תאריכים בסדר יורד">↓</button></div></th>
+        <th><div class="column-name">ימי השבוע</div><div class="column-tools"><select data-filter-column="2" aria-label="סינון ימי השבוע"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="2" data-direction="asc" aria-label="מיון ימי השבוע בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="2" data-direction="desc" aria-label="מיון ימי השבוע בסדר יורד">↓</button></div></th>
+        <th><div class="column-name">מחיר לזוג</div><div class="column-tools"><select data-filter-column="3" aria-label="סינון מחיר לזוג"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="3" data-direction="asc" aria-label="מיון מחיר לזוג מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="3" data-direction="desc" aria-label="מיון מחיר לזוג מהגבוה לנמוך">↓</button></div></th>
+        <th><div class="column-name">מחיר לאדם</div><div class="column-tools"><select data-filter-column="4" aria-label="סינון מחיר לאדם"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="4" data-direction="asc" aria-label="מיון מחיר לאדם מהנמוך לגבוה">↑</button><button type="button" class="sort-button" data-sort-column="4" data-direction="desc" aria-label="מיון מחיר לאדם מהגבוה לנמוך">↓</button></div></th>
+        <th><div class="column-name">טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></div><div class="column-tools"><select data-filter-column="5" aria-label="סינון טיסת הלוך"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="5" data-direction="asc" aria-label="מיון טיסת הלוך בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="5" data-direction="desc" aria-label="מיון טיסת הלוך בסדר יורד">↓</button></div></th>
+        <th><div class="column-name">טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></div><div class="column-tools"><select data-filter-column="6" aria-label="סינון טיסת חזור"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="6" data-direction="asc" aria-label="מיון טיסת חזור בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="6" data-direction="desc" aria-label="מיון טיסת חזור בסדר יורד">↓</button></div></th>
+        <th><div class="column-name">הערה</div><div class="column-tools"><select data-filter-column="7" aria-label="סינון הערה"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="7" data-direction="asc" aria-label="מיון הערה בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="7" data-direction="desc" aria-label="מיון הערה בסדר יורד">↓</button></div></th>
+      </tr></thead>
       <tbody>
         <tr><td>ספטמבר 2026</td><td><div class="date-range"><bdi>20.09</bdi><span class="to">עד</span><bdi>27.09</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td>—</td><td>—</td><td>אין מושבים</td></tr>
         <tr><td>אוקטובר 2026</td><td><div class="date-range"><bdi>18.10</bdi><span class="to">עד</span><bdi>25.10</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־3,859 ₪</span><span class="usd">$1,274.34</span></td><td class="price"><span class="ils">כ־1,930 ₪</span><span class="usd">$637.17</span></td><td><div class="flight"><bdi class="flight-no">LY 281</bdi><bdi class="flight-time">15:30–18:40</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">10:30–15:00</bdi></div></td><td>—</td></tr>
