@@ -36,20 +36,27 @@
     .decision strong { color:var(--text); }
     .table-shell { overflow:hidden; border:1px solid var(--line); border-radius:20px; background:var(--panel); box-shadow:var(--shadow); }
     .table-scroll { overflow:auto; }
-    table { width:100%; min-width:980px; border-collapse:separate; border-spacing:0; }
-    th,td { padding:14px 12px; text-align:right; vertical-align:middle; border-bottom:1px solid var(--line); }
-    th { background:var(--soft); font-size:13px; font-weight:850; }
+    table { width:100%; min-width:1080px; border-collapse:separate; border-spacing:0; }
+    th,td { padding:15px 13px; text-align:right; vertical-align:middle; border-bottom:1px solid var(--line); }
+    th { position:sticky; top:0; z-index:2; min-width:145px; background:var(--soft); font-size:13px; font-weight:850; }
+    th:first-child,td:first-child { padding-right:18px; }
+    th.index-col,td.index-cell { width:58px; min-width:58px; padding-inline:10px; text-align:center; }
     tbody tr:nth-child(even) { background:color-mix(in srgb,var(--soft) 60%,transparent); }
     tbody tr:last-child td { border-bottom:0; }
     .recommended-row { background:var(--green-soft)!important; }
-    .number { color:var(--muted); text-align:center; font-weight:800; }
-    .date { direction:ltr; unicode-bidi:isolate; white-space:nowrap; font-variant-numeric:tabular-nums; }
-    .price strong { display:block; white-space:nowrap; }
-    .price small { color:var(--muted); direction:ltr; }
-    .flight { display:grid; direction:ltr; text-align:left; white-space:nowrap; }
-    .flight bdi:first-child { color:var(--blue); font-size:12px; font-weight:850; }
-    .flight bdi:last-child { font-weight:750; }
-    .badge { display:inline-flex; margin-top:5px; padding:3px 7px; color:var(--green); border-radius:999px; background:var(--panel); font-size:11px; font-weight:850; }
+    td.index-cell { color:var(--muted); font-weight:800; font-variant-numeric:tabular-nums; }
+    .price { font-weight:800; }
+    .ils { display:block; font-size:16px; white-space:nowrap; }
+    .usd { display:block; color:var(--muted); font-size:12px; font-weight:500; direction:ltr; text-align:right; }
+    .date-range { display:flex; align-items:center; justify-content:flex-end; gap:5px; direction:ltr; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .date-range .to { color:var(--muted); direction:rtl; }
+    .date-range bdi,.flight bdi { direction:ltr; unicode-bidi:isolate; }
+    .days { white-space:nowrap; }
+    .flight { display:grid; gap:2px; direction:ltr; text-align:left; white-space:nowrap; }
+    .flight-no { color:var(--blue); font-size:12px; font-weight:850; letter-spacing:.02em; }
+    .flight-time { font-size:15px; font-weight:750; font-variant-numeric:tabular-nums; }
+    .next-day { color:var(--muted); font-size:11px; direction:rtl; text-align:right; }
+    .focus-badge { display:inline-flex; margin-top:4px; padding:2px 7px; color:var(--green); border-radius:999px; background:var(--panel); font-size:10px; font-weight:850; }
     .source { margin:16px 3px 0; color:var(--muted); font-size:12px; }
     .source a { color:var(--blue); }
     @media (max-width:720px) {
@@ -69,9 +76,10 @@
       td { display:grid; grid-template-columns:112px 1fr; gap:10px; align-items:center; padding:9px 0; border-bottom:1px solid var(--line); }
       td:last-child { border-bottom:0; }
       td::before { color:var(--muted); font-size:12px; font-weight:800; }
-      td:nth-child(1)::before { content:"מספר"; } td:nth-child(2)::before { content:"תאריכים"; } td:nth-child(3)::before { content:"ימים"; }
-      td:nth-child(4)::before { content:"מחיר לזוג"; } td:nth-child(5)::before { content:"מחיר לאדם"; } td:nth-child(6)::before { content:"הלוך"; } td:nth-child(7)::before { content:"חזור"; }
-      .number { text-align:right; }
+      th.index-col,td.index-cell { width:100%; min-width:0; padding-inline:0; text-align:right; }
+      td:nth-child(1)::before { content:"מספר"; } td:nth-child(2)::before { content:"חודש"; } td:nth-child(3)::before { content:"תאריכים"; } td:nth-child(4)::before { content:"ימי השבוע"; }
+      td:nth-child(5)::before { content:"מחיר לזוג"; } td:nth-child(6)::before { content:"מחיר לאדם"; } td:nth-child(7)::before { content:"טיסת הלוך"; } td:nth-child(8)::before { content:"טיסת חזור"; }
+      .date-range { justify-content:flex-start; } .flight { justify-self:start; }
     }
   </style>
 </head>
@@ -102,16 +110,16 @@
   <h2 class="section-title">הטיסות שנבדקו במאי וביוני</h2>
   <section class="table-shell" aria-label="טיסות מאי ויוני">
     <div class="table-scroll"><table>
-      <thead><tr><th>מס׳</th><th>תאריכים</th><th>ימי השבוע</th><th>מחיר לזוג</th><th>מחיר לאדם</th><th>הלוך · TLV–MXP</th><th>חזור · VCE–TLV</th></tr></thead>
+      <thead><tr><th scope="col" class="index-col">מס׳</th><th scope="col">חודש</th><th scope="col">תאריכים</th><th scope="col">ימי השבוע</th><th scope="col">מחיר לזוג</th><th scope="col">מחיר לאדם</th><th scope="col">טיסת הלוך<br><span dir="ltr">TLV → MXP</span></th><th scope="col">טיסת חזור<br><span dir="ltr">VCE → TLV</span></th></tr></thead>
       <tbody>
-        <tr><td class="number">1</td><td><span class="date">18.05–25.05</span><span class="badge">מאי</span></td><td>שלישי עד שלישי</td><td class="price"><strong>כ־3,913 ₪</strong><small>$1,292.34</small></td><td class="price"><strong>כ־1,957 ₪</strong><small>$646.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">2</td><td><span class="date">23.05–30.05</span><span class="badge">מאי</span></td><td>ראשון עד ראשון</td><td class="price"><strong>כ־5,373 ₪</strong><small>$1,774.34</small></td><td class="price"><strong>כ־2,686 ₪</strong><small>$887.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">3</td><td><span class="date">24.05–31.05</span><span class="badge">מאי</span></td><td>שני עד שני</td><td class="price"><strong>כ־4,785 ₪</strong><small>$1,580.34</small></td><td class="price"><strong>כ־2,393 ₪</strong><small>$790.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">4</td><td><span class="date">01.06–08.06</span><span class="badge">תחילת יוני</span></td><td>שלישי עד שלישי</td><td class="price"><strong>כ־3,458 ₪</strong><small>$1,142</small></td><td class="price"><strong>כ־1,729 ₪</strong><small>$571</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr class="recommended-row"><td class="number">5</td><td><span class="date">08.06–15.06</span><span class="badge">מומלץ</span></td><td>שלישי עד שלישי</td><td class="price"><strong>כ־3,985 ₪</strong><small>$1,316</small></td><td class="price"><strong>כ־1,992 ₪</strong><small>$658</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">6</td><td><span class="date">20.06–27.06</span><span class="badge">יוני</span></td><td>ראשון עד ראשון</td><td class="price"><strong>כ־4,591 ₪</strong><small>$1,516.34</small></td><td class="price"><strong>כ־2,296 ₪</strong><small>$758.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">7</td><td><span class="date">21.06–28.06</span><span class="badge">יוני</span></td><td>שני עד שני</td><td class="price"><strong>כ־4,337 ₪</strong><small>$1,432.34</small></td><td class="price"><strong>כ־2,169 ₪</strong><small>$716.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
-        <tr><td class="number">8</td><td><span class="date">22.06–29.06</span><span class="badge">יוני</span></td><td>שלישי עד שלישי</td><td class="price"><strong>כ־3,980 ₪</strong><small>$1,314.34</small></td><td class="price"><strong>כ־1,990 ₪</strong><small>$657.17</small></td><td><span class="flight"><bdi>LY 381</bdi><bdi>07:35–10:45</bdi></span></td><td><span class="flight"><bdi>LY 290</bdi><bdi>22:05–02:25</bdi></span></td></tr>
+        <tr><td class="index-cell">1</td><td>מאי 2027</td><td><div class="date-range"><bdi>18.05</bdi><span class="to">עד</span><bdi>25.05</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,913 ₪</span><span class="usd">$1,292.34</span></td><td class="price"><span class="ils">כ־1,957 ₪</span><span class="usd">$646.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr><td class="index-cell">2</td><td>מאי 2027</td><td><div class="date-range"><bdi>23.05</bdi><span class="to">עד</span><bdi>30.05</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,686 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
+        <tr><td class="index-cell">3</td><td>מאי 2027</td><td><div class="date-range"><bdi>24.05</bdi><span class="to">עד</span><bdi>31.05</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,785 ₪</span><span class="usd">$1,580.34</span></td><td class="price"><span class="ils">כ־2,393 ₪</span><span class="usd">$790.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
+        <tr><td class="index-cell">4</td><td>יוני 2027</td><td><div class="date-range"><bdi>01.06</bdi><span class="to">עד</span><bdi>08.06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,458 ₪</span><span class="usd">$1,142</span></td><td class="price"><span class="ils">כ־1,729 ₪</span><span class="usd">$571</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr class="recommended-row"><td class="index-cell">5</td><td>יוני 2027<br><span class="focus-badge">מומלץ</span></td><td><div class="date-range"><bdi>08.06</bdi><span class="to">עד</span><bdi>15.06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,985 ₪</span><span class="usd">$1,316</span></td><td class="price"><span class="ils">כ־1,992 ₪</span><span class="usd">$658</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr><td class="index-cell">6</td><td>יוני 2027</td><td><div class="date-range"><bdi>20.06</bdi><span class="to">עד</span><bdi>27.06</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,591 ₪</span><span class="usd">$1,516.34</span></td><td class="price"><span class="ils">כ־2,296 ₪</span><span class="usd">$758.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
+        <tr><td class="index-cell">7</td><td>יוני 2027</td><td><div class="date-range"><bdi>21.06</bdi><span class="to">עד</span><bdi>28.06</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,337 ₪</span><span class="usd">$1,432.34</span></td><td class="price"><span class="ils">כ־2,169 ₪</span><span class="usd">$716.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
+        <tr><td class="index-cell">8</td><td>יוני 2027</td><td><div class="date-range"><bdi>22.06</bdi><span class="to">עד</span><bdi>29.06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,980 ₪</span><span class="usd">$1,314.34</span></td><td class="price"><span class="ils">כ־1,990 ₪</span><span class="usd">$657.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
       </tbody>
     </table></div>
   </section>
