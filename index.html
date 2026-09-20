@@ -15,13 +15,14 @@
     .subtitle { display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; }
     .subtitle span { white-space:nowrap; }
     .filter-panel { margin-top:22px; padding:16px; background:var(--panel); border:1px solid var(--line); border-radius:8px; }
-    .filter-panel h2 { margin:0 0 12px; font-size:18px; }
+    .filter-panel h2 { margin:0; font-size:19px; }
+    .filter-help { margin:4px 0 14px; color:var(--muted); font-size:13px; }
     .filters { display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:12px; }
     .filter-field { display:grid; gap:5px; color:var(--muted); font-size:13px; font-weight:700; }
     .filter-control { display:grid; grid-template-columns:minmax(0,1fr) 36px 36px; gap:5px; }
     .filter-field select { width:100%; min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); font:inherit; font-weight:400; }
     .sort-button { border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-size:17px; }
-    .sort-button:hover,.sort-button.active { border-color:var(--blue); color:var(--blue); font-weight:700; }
+    .sort-button:hover,.sort-button.active { border-color:var(--blue); color:var(--blue); background:color-mix(in srgb, var(--blue) 10%, var(--bg)); font-weight:700; }
     .filter-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; }
     .clear-filters { padding:8px 14px; border:1px solid var(--line); border-radius:6px; background:var(--bg); color:var(--text); cursor:pointer; font-weight:700; }
     .clear-filters:hover { border-color:var(--blue); }
@@ -50,12 +51,13 @@
     .notes { margin:18px 0 0; padding:0 18px 0 0; }
     .notes li { margin:5px 0; }
     .source { font-size:13px; margin-top:16px; }
+    @media (max-width:1000px) { .filters { grid-template-columns:1fr 1fr; } }
     @media (max-width:760px) {
       main { padding:18px 12px 30px; }
       h1 { font-size:24px; line-height:1.25; }
       .subtitle { gap:4px 12px; font-size:14px; }
       .filter-panel { padding:14px; }
-      .filters { grid-template-columns:1fr 1fr; gap:10px; }
+      .filters { grid-template-columns:1fr; gap:10px; }
       .filter-actions { align-items:flex-start; flex-direction:column; }
       .table-wrap { overflow:visible; border:0; background:transparent; }
       table,tbody,tr,td { display:block; width:100%; }
@@ -92,7 +94,8 @@
   </div>
 
   <section class="filter-panel" aria-labelledby="filter-title">
-    <h2 id="filter-title">סינון הטבלה</h2>
+    <h2 id="filter-title">מיון וסינון לפי עמודה</h2>
+    <p class="filter-help">בחר ערך לסינון, או השתמש בחצים כדי למיין. ניתן לשלב כמה מסננים יחד.</p>
     <div class="filters">
       <label class="filter-field">חודש<span class="filter-control"><select data-filter-column="0"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="0" data-direction="asc" aria-label="מיון חודש בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="0" data-direction="desc" aria-label="מיון חודש בסדר יורד">↓</button></span></label>
       <label class="filter-field">תאריכים<span class="filter-control"><select data-filter-column="1"><option value="">הכול</option></select><button type="button" class="sort-button" data-sort-column="1" data-direction="asc" aria-label="מיון תאריכים בסדר עולה">↑</button><button type="button" class="sort-button" data-sort-column="1" data-direction="desc" aria-label="מיון תאריכים בסדר יורד">↓</button></span></label>
@@ -138,7 +141,9 @@
   const sortButtons = [...document.querySelectorAll('[data-sort-column]')];
   const resultCount = document.querySelector('.result-count');
   const tbody = document.querySelector('tbody');
+  let activeSortLabel = '';
   rows.forEach((row, index) => { row.dataset.originalIndex = index; });
+  sortButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
 
   const cleanText = value => value.replace(/\s+/g, ' ').trim();
 
@@ -165,7 +170,7 @@
       row.hidden = !matches;
       if (matches) visible += 1;
     });
-    resultCount.textContent = `מוצגות ${visible} מתוך ${rows.length} אפשרויות`;
+    resultCount.textContent = `מוצגות ${visible} מתוך ${rows.length} אפשרויות${activeSortLabel ? ` · ${activeSortLabel}` : ''}`;
   }
 
   filters.forEach(select => select.addEventListener('change', applyFilters));
@@ -176,14 +181,18 @@
       cleanText(b.cells[column].innerText), 'he', { numeric: true }
     ) * direction);
     rows.forEach(row => tbody.appendChild(row));
-    sortButtons.forEach(item => item.classList.remove('active'));
+    sortButtons.forEach(item => { item.classList.remove('active'); item.setAttribute('aria-pressed', 'false'); });
     button.classList.add('active');
+    button.setAttribute('aria-pressed', 'true');
+    activeSortLabel = button.getAttribute('aria-label');
+    applyFilters();
   }));
   document.querySelector('.clear-filters').addEventListener('click', () => {
     filters.forEach(select => { select.value = ''; });
     rows.sort((a, b) => Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex));
     rows.forEach(row => tbody.appendChild(row));
-    sortButtons.forEach(button => button.classList.remove('active'));
+    sortButtons.forEach(button => { button.classList.remove('active'); button.setAttribute('aria-pressed', 'false'); });
+    activeSortLabel = '';
     applyFilters();
   });
   applyFilters();
