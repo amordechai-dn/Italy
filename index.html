@@ -241,7 +241,7 @@
         <div class="control"><label for="filter-max-price">מחיר מרבי לזוג</label><div class="select-wrap"><select id="filter-max-price"><option value="">ללא הגבלה</option><option value="3500">עד 3,500 ₪</option><option value="4000">עד 4,000 ₪</option><option value="4500">עד 4,500 ₪</option><option value="5000">עד 5,000 ₪</option></select></div></div>
         <div class="control"><label for="filter-outbound">שעת ההלוך</label><div class="select-wrap"><select id="filter-outbound"><option value="">כל השעות</option><option value="morning">בוקר — לפני 10:00</option><option value="afternoon">צהריים ואחר הצהריים</option></select></div></div>
         <div class="control"><label for="filter-return">שעת החזור</label><div class="select-wrap"><select id="filter-return"><option value="">כל השעות</option><option value="morning">בוקר — לפני 12:00</option><option value="evening">ערב — אחרי 18:00</option></select></div></div>
-        <div class="control"><label for="sort-results">מיון התוצאות</label><div class="select-wrap"><select id="sort-results"><option value="date-asc">לפי תאריך</option><option value="date-desc">מהתאריך המאוחר למוקדם</option><option value="price-asc">מהזול ליקר</option><option value="price-desc">מהיקר לזול</option><option value="outbound-asc">שעת הלוך מוקדמת תחילה</option><option value="return-desc">שעת חזור מאוחרת תחילה</option></select></div></div>
+        <div class="control"><label for="sort-results">מיון התוצאות</label><div class="select-wrap"><select id="sort-results"><option value="date-asc">מהתאריך המוקדם למאוחר</option><option value="date-desc">מהתאריך המאוחר למוקדם</option><option value="price-asc">מהזול ליקר</option><option value="price-desc">מהיקר לזול</option><option value="outbound-asc">שעת הלוך מוקדמת תחילה</option><option value="return-desc">שעת חזור מאוחרת תחילה</option></select></div></div>
       </div>
       <div class="filter-actions">
         <span class="active-summary" aria-live="polite">ללא מסננים פעילים</span>
@@ -336,6 +336,12 @@
   const rowPrice = row => {
     const value = row.cells[4].querySelector('.ils');
     return value ? Number(value.textContent.replace(/\D/g, '')) : null;
+  };
+  const rowDate = row => {
+    const dateMatch = cleanText(row.cells[2].innerText).match(/(\d{2})\.(\d{2})/);
+    const yearMatch = cleanText(row.cells[1].innerText).match(/\d{4}/);
+    if (!dateMatch || !yearMatch) return null;
+    return Date.UTC(Number(yearMatch[0]), Number(dateMatch[2]) - 1, Number(dateMatch[1]));
   };
   const rowTime = (row, column) => {
     const match = cleanText(row.cells[column].innerText).match(/\b(\d{2}):(\d{2})\b/);
@@ -477,7 +483,8 @@
   function sortRows() {
     const mode = controls.sort.value;
     rows.sort((a, b) => {
-      if (mode === 'date-desc') return Number(b.dataset.originalIndex) - Number(a.dataset.originalIndex);
+      if (mode === 'date-asc') return compareNullable(rowDate(a), rowDate(b)) || Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
+      if (mode === 'date-desc') return compareNullable(rowDate(a), rowDate(b), -1) || Number(a.dataset.originalIndex) - Number(b.dataset.originalIndex);
       if (mode === 'price-asc') return compareNullable(rowPrice(a), rowPrice(b));
       if (mode === 'price-desc') return compareNullable(rowPrice(a), rowPrice(b), -1);
       if (mode === 'outbound-asc') return compareNullable(rowTime(a, 6), rowTime(b, 6));
