@@ -70,13 +70,35 @@
     .result-count { flex:0 0 auto; padding:5px 9px; color:var(--blue); border-radius:999px; background:var(--blue-soft); font-size:12px; font-weight:800; }
     .filter-disclosure summary { display:none; }
     .filter-grid { display:grid; grid-template-columns:repeat(4,minmax(150px,1fr)); gap:12px; }
-    .control { display:grid; gap:6px; min-width:0; }
-    .control label { color:var(--muted); font-size:12px; font-weight:800; }
-    .control select {
-      width:100%; min-height:44px; padding:9px 11px; color:var(--text); border:1px solid var(--line);
-      border-radius:11px; background:var(--panel-soft); cursor:pointer; font-size:13px; font-weight:700;
+    .control { display:grid; gap:7px; min-width:0; }
+    .control label { padding-inline:2px; color:var(--text); font-size:12px; font-weight:800; }
+    .select-wrap { position:relative; min-width:0; }
+    .select-wrap::before {
+      content:""; position:absolute; z-index:1; left:43px; top:11px; bottom:11px;
+      width:1px; background:var(--line); pointer-events:none; transition:background .18s ease;
     }
-    .control select:hover { border-color:color-mix(in srgb,var(--blue-2) 55%,var(--line)); }
+    .select-wrap::after {
+      content:""; position:absolute; z-index:1; left:17px; top:50%; width:8px; height:8px;
+      border-left:2px solid var(--muted); border-bottom:2px solid var(--muted);
+      transform:translateY(-68%) rotate(-45deg); pointer-events:none; transition:transform .18s ease,border-color .18s ease;
+    }
+    .control select {
+      appearance:none; -webkit-appearance:none; width:100%; min-height:48px; padding:10px 14px 10px 54px;
+      color:var(--text); border:1px solid color-mix(in srgb,var(--line) 88%,var(--blue)); border-radius:12px;
+      background:linear-gradient(180deg,var(--panel) 0%,var(--panel-soft) 100%); cursor:pointer;
+      font-size:13px; font-weight:750; box-shadow:0 2px 5px rgba(22,47,92,.035),inset 0 1px 0 rgba(255,255,255,.5);
+      transition:border-color .18s ease,box-shadow .18s ease,background .18s ease,transform .18s ease;
+    }
+    .control select:hover { border-color:color-mix(in srgb,var(--blue-2) 55%,var(--line)); box-shadow:0 5px 14px rgba(22,47,92,.08); }
+    .control select:focus-visible {
+      outline:0; border-color:var(--blue-2);
+      box-shadow:0 0 0 4px color-mix(in srgb,var(--blue-2) 15%,transparent),0 6px 16px rgba(22,47,92,.08);
+    }
+    .select-wrap:focus-within::before { background:color-mix(in srgb,var(--blue-2) 30%,var(--line)); }
+    .select-wrap:focus-within::after { border-color:var(--blue-2); transform:translateY(-30%) rotate(135deg); }
+    .control.has-value label { color:var(--blue); }
+    .control.has-value select { border-color:color-mix(in srgb,var(--blue-2) 45%,var(--line)); background:var(--blue-soft); }
+    .control select option { color:var(--text); background:var(--panel); font-weight:650; }
     .filter-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
     .active-summary { min-height:20px; color:var(--muted); font-size:12px; }
     .clear-filters {
@@ -138,7 +160,7 @@
       .filter-disclosure[open] summary::before { content:"−"; }
       .disclosure-status { margin-inline-start:auto; color:var(--muted); font-size:11px; font-weight:700; }
       .filter-grid { grid-template-columns:1fr; gap:11px; padding:14px 15px; }
-      .control select { min-height:46px; }
+      .control select { min-height:50px; font-size:14px; }
       .filter-actions { align-items:stretch; flex-direction:column; margin:0; padding:0 15px 15px; border-top:0; }
       .clear-filters { width:100%; min-height:46px; }
       .active-summary { order:-1; }
@@ -190,13 +212,13 @@
     <details class="filter-disclosure" open>
       <summary><span>אפשרויות סינון ומיון</span><span class="disclosure-status">ללא סינון</span></summary>
       <div class="filter-grid">
-        <div class="control"><label for="filter-month">חודש</label><select id="filter-month"><option value="">כל החודשים</option></select></div>
-        <div class="control"><label for="filter-days">ימי הנסיעה</label><select id="filter-days"><option value="">ראשון ושני</option><option value="ראשון עד ראשון">ראשון עד ראשון</option><option value="שני עד שני">שני עד שני</option></select></div>
-        <div class="control"><label for="filter-availability">זמינות</label><select id="filter-availability"><option value="">הכול</option><option value="available">טיסות זמינות בלבד</option><option value="unavailable">אפשרויות לא זמינות</option></select></div>
-        <div class="control"><label for="filter-max-price">מחיר מרבי לזוג</label><select id="filter-max-price"><option value="">ללא הגבלה</option><option value="3500">עד 3,500 ₪</option><option value="4000">עד 4,000 ₪</option><option value="4500">עד 4,500 ₪</option><option value="5000">עד 5,000 ₪</option></select></div>
-        <div class="control"><label for="filter-outbound">שעת ההלוך</label><select id="filter-outbound"><option value="">כל השעות</option><option value="morning">בוקר — לפני 10:00</option><option value="afternoon">צהריים ואחר הצהריים</option></select></div>
-        <div class="control"><label for="filter-return">שעת החזור</label><select id="filter-return"><option value="">כל השעות</option><option value="morning">בוקר — לפני 12:00</option><option value="evening">ערב — אחרי 18:00</option></select></div>
-        <div class="control"><label for="sort-results">מיון התוצאות</label><select id="sort-results"><option value="date-asc">לפי תאריך</option><option value="date-desc">מהתאריך המאוחר למוקדם</option><option value="price-asc">מהזול ליקר</option><option value="price-desc">מהיקר לזול</option><option value="outbound-asc">שעת הלוך מוקדמת תחילה</option><option value="return-desc">שעת חזור מאוחרת תחילה</option></select></div>
+        <div class="control"><label for="filter-month">חודש</label><div class="select-wrap"><select id="filter-month"><option value="">כל החודשים</option></select></div></div>
+        <div class="control"><label for="filter-days">ימי הנסיעה</label><div class="select-wrap"><select id="filter-days"><option value="">ראשון ושני</option><option value="ראשון עד ראשון">ראשון עד ראשון</option><option value="שני עד שני">שני עד שני</option></select></div></div>
+        <div class="control"><label for="filter-availability">זמינות</label><div class="select-wrap"><select id="filter-availability"><option value="">הכול</option><option value="available">טיסות זמינות בלבד</option><option value="unavailable">אפשרויות לא זמינות</option></select></div></div>
+        <div class="control"><label for="filter-max-price">מחיר מרבי לזוג</label><div class="select-wrap"><select id="filter-max-price"><option value="">ללא הגבלה</option><option value="3500">עד 3,500 ₪</option><option value="4000">עד 4,000 ₪</option><option value="4500">עד 4,500 ₪</option><option value="5000">עד 5,000 ₪</option></select></div></div>
+        <div class="control"><label for="filter-outbound">שעת ההלוך</label><div class="select-wrap"><select id="filter-outbound"><option value="">כל השעות</option><option value="morning">בוקר — לפני 10:00</option><option value="afternoon">צהריים ואחר הצהריים</option></select></div></div>
+        <div class="control"><label for="filter-return">שעת החזור</label><div class="select-wrap"><select id="filter-return"><option value="">כל השעות</option><option value="morning">בוקר — לפני 12:00</option><option value="evening">ערב — אחרי 18:00</option></select></div></div>
+        <div class="control"><label for="sort-results">מיון התוצאות</label><div class="select-wrap"><select id="sort-results"><option value="date-asc">לפי תאריך</option><option value="date-desc">מהתאריך המאוחר למוקדם</option><option value="price-asc">מהזול ליקר</option><option value="price-desc">מהיקר לזול</option><option value="outbound-asc">שעת הלוך מוקדמת תחילה</option><option value="return-desc">שעת חזור מאוחרת תחילה</option></select></div></div>
       </div>
       <div class="filter-actions">
         <span class="active-summary" aria-live="polite">ללא מסננים פעילים</span>
@@ -335,10 +357,14 @@
     resultCount.textContent = `${visible} מתוך ${rows.length} אפשרויות`;
 
     const active = filterControls.filter(select => select.value);
-    const activeLabels = active.map(select => `${select.previousElementSibling.textContent}: ${select.options[select.selectedIndex].textContent}`);
+    const activeLabels = active.map(select => `${select.closest('.control').querySelector('label').textContent}: ${select.options[select.selectedIndex].textContent}`);
     activeSummary.textContent = active.length ? `${active.length} מסננים פעילים · ${activeLabels.join(' · ')}` : 'ללא מסננים פעילים';
     disclosureStatus.textContent = active.length ? `${active.length} מסננים` : 'ללא סינון';
     clearButton.disabled = active.length === 0 && controls.sort.value === 'date-asc';
+    Object.values(controls).forEach(select => {
+      const isDefaultSort = select === controls.sort && select.value === 'date-asc';
+      select.closest('.control').classList.toggle('has-value', Boolean(select.value) && !isDefaultSort);
+    });
   }
 
   Object.values(controls).forEach(select => select.addEventListener('change', applyFilters));
