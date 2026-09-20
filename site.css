@@ -29,7 +29,7 @@ select { font: inherit; }
 main {
   width: min(100% - 32px, var(--site-max-width));
   margin-inline: auto;
-  padding-block: 34px 48px;
+  padding-block: 0 48px;
 }
 
 .site-header {
@@ -300,7 +300,7 @@ tbody tr:last-child td { border-bottom: 0; }
 .source a { color: var(--blue); }
 
 @media (max-width: 760px) {
-  main { width: min(100% - 20px,720px); padding-block: 16px 30px; }
+  main { width: min(100% - 20px,720px); padding-block: 0 30px; }
   .site-header { top: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 10px 2px 0; border-radius: 0; }
   .site-brand { padding: 0 3px 9px; }
   .brand-mark { width: 34px; height: 34px; flex-basis: 34px; }
