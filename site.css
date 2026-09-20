@@ -1,5 +1,5 @@
 :root {
-  --site-max-width: 1240px;
+  --site-max-width: 1680px;
   --site-radius: 20px;
   --site-font: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
 }
@@ -27,7 +27,7 @@ button,
 select { font: inherit; }
 
 main {
-  width: min(100% - 32px, var(--site-max-width));
+  width: min(100% - 40px, var(--site-max-width));
   margin-inline: auto;
   padding-block: 0 48px;
 }
