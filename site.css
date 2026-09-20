@@ -173,6 +173,8 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
 .date-range,
 .flight-no,
 .flight-time { font-variant-numeric: tabular-nums; }
+.price .ils { text-align: start; }
+.price .usd { text-align: end; }
 
 @media (max-width: 760px) {
   main { width: min(100% - 20px,720px); padding-block: 16px 30px; }
@@ -186,6 +188,9 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
   .hero h1 { font-size: 29px; }
   .section-title,
   .section-heading h2 { font-size: 20px; }
+  td.price::before { grid-row: 1 / span 2; align-self: center; }
+  td.price .ils,
+  td.price .usd { grid-column: 2; }
 }
 
 @media (prefers-reduced-motion: reduce) {
