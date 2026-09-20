@@ -1,5 +1,5 @@
 :root {
-  --site-max-width: 1280px;
+  --site-max-width: 1400px;
   --site-radius: 20px;
   --site-font: "Noto Sans Hebrew", "Arial Hebrew", Arial, sans-serif;
 }
@@ -126,7 +126,10 @@ main {
 .hero {
   position: relative;
   overflow: hidden;
-  min-height: 156px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 174px;
   padding: 30px;
   color: #fff;
   border-radius: 22px;
@@ -153,6 +156,10 @@ main {
   letter-spacing: -.035em;
 }
 
+.section-title,
+.section-heading {
+  margin: 32px 4px 12px;
+}
 .section-title,
 .section-heading h2 { font-size: 22px; line-height: 1.25; letter-spacing: -.02em; }
 
@@ -184,8 +191,10 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
   .page-tabs { width: 100%; border-top: 1px solid var(--line); }
   .page-tab { flex: 1; min-width: 0; padding: 10px 8px 11px; }
   .page-tab::after { inset-inline: 8px; }
-  .hero { min-height: 0; padding: 24px 20px; border-radius: 20px; }
+  .hero { height: auto; min-height: 0; padding: 24px 20px; border-radius: 20px; }
   .hero h1 { font-size: 29px; }
+  .section-title,
+  .section-heading { margin: 24px 4px 10px; }
   .section-title,
   .section-heading h2 { font-size: 20px; }
   td.price::before { grid-row: 1 / span 2; align-self: center; }
