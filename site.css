@@ -32,13 +32,13 @@ main {
   position: sticky;
   top: 0;
   z-index: 40;
-  display: grid;
-  grid-template-columns: minmax(230px,1fr) auto;
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 24px;
   margin-block-end: 0;
   padding: 12px 4px 10px;
-  direction: ltr;
+  direction: rtl;
   text-align: start;
   border: 0;
   border-bottom: 1px solid var(--line);
@@ -52,7 +52,7 @@ main {
 .site-brand {
   display: flex;
   align-items: center;
-  justify-self: start;
+  flex: 0 0 auto;
   gap: 10px;
   min-width: 0;
   padding-block-end: 0;
@@ -274,8 +274,8 @@ th { min-width: 145px; background: var(--panel-soft,var(--soft)); font-size: 13p
 
 @media (max-width: 760px) {
   main { width: min(100% - 20px,720px); padding-block: 16px 30px; }
-  .site-header { top: 0; grid-template-columns: 1fr; gap: 0; padding: 10px 2px 0; border-radius: 0; }
-  .site-brand { justify-self: stretch; padding: 0 3px 9px; }
+  .site-header { top: 0; flex-direction: column; align-items: stretch; gap: 0; padding: 10px 2px 0; border-radius: 0; }
+  .site-brand { padding: 0 3px 9px; }
   .brand-mark { width: 34px; height: 34px; flex-basis: 34px; }
   .page-tabs { width: 100%; border-top: 1px solid var(--line); }
   .page-tab { flex: 1; min-width: 0; padding: 10px 8px 11px; }
