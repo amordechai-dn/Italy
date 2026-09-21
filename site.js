@@ -7,7 +7,8 @@ const SITE_PAGES = [
 
 const siteRoot = document.documentElement.dataset.siteRoot || ".";
 const siteUrl = (path = "") => `${siteRoot.replace(/\/$/, "")}/${path}`;
-const pageBuildVersion = document.querySelector('meta[name="site-build-version"]')?.content?.trim() || "";
+const buildVersionKey = "italy-site-build-version";
+let pageBuildVersion = localStorage.getItem(buildVersionKey) || "";
 const updateChannel = "BroadcastChannel" in window ? new BroadcastChannel("italy-site-updates") : null;
 
 function createElement(tag, className, text) {
@@ -92,17 +93,24 @@ function reloadForVersion(version) {
   const reloadKey = `site-reload-${version}`;
   if (sessionStorage.getItem(reloadKey)) return;
   sessionStorage.setItem(reloadKey, "1");
+  localStorage.setItem(buildVersionKey, version);
   const url = new URL(window.location.href);
   url.searchParams.set("site-version", version.slice(0, 8));
   window.location.replace(url);
 }
 
 async function checkForSiteUpdate() {
-  if (!/^https?:$/.test(window.location.protocol) || !/^[a-f0-9]{40}$/i.test(pageBuildVersion)) return;
+  if (!/^https?:$/.test(window.location.protocol)) return;
   try {
     const response = await fetch(`${siteUrl("version.txt")}?t=${Date.now()}`, { cache: "no-store" });
     if (!response.ok) return;
     const deployedVersion = (await response.text()).trim();
+    if (!/^[a-f0-9]{40}$/i.test(deployedVersion)) return;
+    if (!/^[a-f0-9]{40}$/i.test(pageBuildVersion)) {
+      pageBuildVersion = deployedVersion;
+      localStorage.setItem(buildVersionKey, deployedVersion);
+      return;
+    }
     if (deployedVersion !== pageBuildVersion) {
       updateChannel?.postMessage(deployedVersion);
       reloadForVersion(deployedVersion);
