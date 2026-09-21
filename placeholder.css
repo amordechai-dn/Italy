@@ -9,12 +9,9 @@
 }
 .coming-soon-copy { max-width:720px; }
 .coming-soon-label {
-  display:inline-flex;
+  display:block;
   margin:0 0 12px;
-  padding:5px 10px;
   color:var(--blue);
-  border-radius:999px;
-  background:var(--blue-soft);
   font-size:12px;
   font-weight:850;
 }
@@ -26,11 +23,8 @@
   width:92px;
   height:92px;
   color:var(--blue);
-  border:1px solid var(--line);
-  border-radius:28px;
-  background:var(--panel);
-  box-shadow:var(--shadow);
-  font-size:40px;
+  font-size:52px;
+  opacity:.75;
 }
 .back-home {
   display:inline-flex;
@@ -43,5 +37,5 @@
 .back-home:hover { text-decoration:underline; text-underline-offset:4px; }
 @media (max-width:620px) {
   .coming-soon { grid-template-columns:1fr; min-height:0; padding:28px 2px; }
-  .coming-soon-mark { width:72px; height:72px; border-radius:22px; font-size:32px; }
+  .coming-soon-mark { width:72px; height:72px; font-size:40px; }
 }

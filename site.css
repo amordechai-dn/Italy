@@ -238,21 +238,16 @@ main {
 .page-tab[aria-current="page"]::after { opacity: 1; transform: scaleX(1); }
 .tab-count {
   min-width: 23px;
-  padding: 2px 6px;
+  padding: 0;
   color: inherit;
   direction: ltr;
   unicode-bidi: isolate;
   text-align: center;
-  border-radius: 999px;
-  background: var(--blue-soft);
   font-size: 10px;
   font-weight: 900;
 }
 .tab-status {
-  padding:2px 6px;
   color:var(--muted);
-  border-radius:999px;
-  background:var(--panel-soft);
   font-size:9px;
   font-weight:850;
 }
