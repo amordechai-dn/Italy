@@ -4,7 +4,7 @@
 .quick-item { display:flex; align-items:baseline; gap:7px; font-size:var(--type-sm); }
 .quick-item strong { color:var(--blue); font-size:var(--type-md); font-weight:var(--weight-bold); }
 .quick-item + .quick-item { padding-inline-start:24px; border-inline-start:1px solid var(--line); }
-.date-recommendations { scroll-margin-top:78px; }
+.date-recommendations { width:min(100%,var(--content-max-width)); margin-inline:auto; scroll-margin-top:78px; }
 .recommendation-heading { align-items:center; }
 .section-kicker { margin:0 0 4px; color:var(--blue); font-size:var(--type-xs); font-weight:var(--weight-bold); }
 .section-jump {
@@ -35,7 +35,7 @@
 .recommended-row { background:var(--green-soft)!important; }
 .focus-badge { display:inline-flex; margin-top:4px; color:var(--green); font-size:var(--type-xs); font-weight:var(--weight-bold); }
 .filter-panel {
-  margin-top:24px; padding:20px 0; background:transparent; border-block:1px solid var(--line);
+  width:min(100%,var(--content-max-width)); margin:24px auto 0; padding:20px 0; background:transparent; border-block:1px solid var(--line);
 }
 .filter-panel-header { display:flex; align-items:start; justify-content:space-between; gap:18px; margin-bottom:15px; }
 .filter-panel h2 { margin:0; font-size:var(--type-xl); font-weight:var(--weight-bold); letter-spacing:-.015em; }

@@ -1,10 +1,14 @@
 .coming-soon {
   display:grid;
-  grid-template-columns:minmax(0,1fr) auto;
+  grid-template-columns:1fr;
+  justify-items:center;
   align-items:center;
-  gap:28px;
-  min-height:230px;
-  padding:34px 4px;
+  width:min(100%,var(--content-max-width));
+  gap:14px;
+  margin-inline:auto;
+  min-height:280px;
+  padding:42px 4px;
+  text-align:center;
   border-bottom:1px solid var(--line);
 }
 .coming-soon-copy { max-width:720px; }
@@ -20,10 +24,11 @@
 .coming-soon-mark {
   display:grid;
   place-items:center;
-  width:92px;
-  height:92px;
+  grid-row:1;
+  width:72px;
+  height:72px;
   color:var(--blue);
-  font-size:52px;
+  font-size:42px;
   opacity:.75;
 }
 .back-home {
@@ -36,6 +41,6 @@
 }
 .back-home:hover { text-decoration:underline; text-underline-offset:4px; }
 @media (max-width:620px) {
-  .coming-soon { grid-template-columns:1fr; min-height:0; padding:28px 2px; }
-  .coming-soon-mark { width:72px; height:72px; font-size:40px; }
+  .coming-soon { min-height:0; padding:32px 2px; }
+  .coming-soon-mark { width:60px; height:60px; font-size:36px; }
 }
