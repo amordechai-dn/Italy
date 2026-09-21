@@ -62,7 +62,25 @@ function buildSiteHeader() {
     nav.append(link);
   });
 
-  header.replaceChildren(brand, nav);
+  const themeToggle = createElement("button", "theme-toggle");
+  themeToggle.type = "button";
+  const themeIcon = createElement("span", "theme-toggle-icon");
+  themeIcon.setAttribute("aria-hidden", "true");
+  const themeLabel = createElement("span", "theme-toggle-label");
+  themeToggle.append(themeIcon, themeLabel);
+
+  const updateThemeToggle = () => {
+    const isDark = window.siteTheme?.get() === "dark";
+    themeIcon.textContent = isDark ? "☀" : "◐";
+    themeLabel.textContent = isDark ? "מצב בהיר" : "מצב כהה";
+    themeToggle.setAttribute("aria-label", isDark ? "מעבר למצב בהיר" : "מעבר למצב כהה");
+    themeToggle.setAttribute("aria-pressed", String(isDark));
+  };
+  themeToggle.addEventListener("click", () => window.siteTheme?.toggle());
+  window.addEventListener("site-theme-change", updateThemeToggle);
+  updateThemeToggle();
+
+  header.replaceChildren(brand, nav, themeToggle);
 }
 
 buildSiteHeader();

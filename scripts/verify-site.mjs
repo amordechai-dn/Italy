@@ -35,6 +35,7 @@ for (const file of htmlFiles) {
   if (!registered) errors.push(`${file}: העמוד אינו רשום ב-SITE_PAGES`);
   if (registered && pageId !== registered.id) errors.push(`${file}: data-page אינו תואם לרישום בניווט`);
   if (!/(?:\.\.\/)*site\.js\?v=/.test(html)) errors.push(`${file}: חסר site.js`);
+  if (!/(?:\.\.\/)*theme\.js\?v=/.test(html)) errors.push(`${file}: חסר theme.js`);
   if (!html.includes("data-site-header")) errors.push(`${file}: חסרה מעטפת הכותרת המשותפת`);
   if (!html.includes('class="skip-link"')) errors.push(`${file}: חסר קישור דילוג לתוכן הראשי`);
   if (!html.includes('id="main-content"')) errors.push(`${file}: חסרה נקודת כניסה לתוכן הראשי`);
