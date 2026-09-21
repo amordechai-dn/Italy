@@ -141,7 +141,6 @@ textarea { font: inherit; }
 
 bdi,
 [dir="ltr"],
-.tab-count,
 .price,
 .date-range,
 .flight,
@@ -277,16 +276,6 @@ main {
 .page-tab:hover { color: var(--blue); background: var(--blue-soft); }
 .page-tab[aria-current="page"] { color: var(--blue); }
 .page-tab[aria-current="page"]::after { opacity: 1; transform: scaleX(1); }
-.tab-count {
-  min-width: 23px;
-  padding: 0;
-  color: inherit;
-  direction: ltr;
-  unicode-bidi: isolate;
-  text-align: center;
-  font-size: var(--type-xs);
-  font-weight: var(--weight-bold);
-}
 .tab-status {
   color:var(--muted);
   font-size:var(--type-xs);

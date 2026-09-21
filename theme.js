@@ -1,8 +1,11 @@
 (() => {
   const storageKey = "italy-site-theme";
   const readTheme = () => {
-    try { return localStorage.getItem(storageKey) === "dark" ? "dark" : "light"; }
-    catch { return "light"; }
+    try {
+      const storedTheme = localStorage.getItem(storageKey);
+      return storedTheme === "light" || storedTheme === "dark" ? storedTheme : "dark";
+    }
+    catch { return "dark"; }
   };
   const applyTheme = (theme, persist = false) => {
     const selected = theme === "dark" ? "dark" : "light";
