@@ -7,6 +7,8 @@ const SITE_PAGES = [
 
 const siteRoot = document.documentElement.dataset.siteRoot || ".";
 const siteUrl = (path = "") => `${siteRoot.replace(/\/$/, "")}/${path}`;
+const pageBuildVersion = document.querySelector('meta[name="site-build-version"]')?.content?.trim() || "";
+const updateChannel = "BroadcastChannel" in window ? new BroadcastChannel("italy-site-updates") : null;
 
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -84,3 +86,50 @@ function buildSiteHeader() {
 }
 
 buildSiteHeader();
+
+function reloadForVersion(version) {
+  if (!/^[a-f0-9]{40}$/i.test(version) || version === pageBuildVersion) return;
+  const reloadKey = `site-reload-${version}`;
+  if (sessionStorage.getItem(reloadKey)) return;
+  sessionStorage.setItem(reloadKey, "1");
+  const url = new URL(window.location.href);
+  url.searchParams.set("site-version", version.slice(0, 8));
+  window.location.replace(url);
+}
+
+async function checkForSiteUpdate() {
+  if (!/^https?:$/.test(window.location.protocol) || !/^[a-f0-9]{40}$/i.test(pageBuildVersion)) return;
+  try {
+    const response = await fetch(`${siteUrl("version.txt")}?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) return;
+    const deployedVersion = (await response.text()).trim();
+    if (deployedVersion !== pageBuildVersion) {
+      updateChannel?.postMessage(deployedVersion);
+      reloadForVersion(deployedVersion);
+    }
+  } catch {
+    // A temporary network failure should never interrupt the current page.
+  }
+}
+
+async function enableFreshNavigation() {
+  if (!("serviceWorker" in navigator) || !/^https?:$/.test(window.location.protocol)) return;
+  try {
+    const registration = await navigator.serviceWorker.register(siteUrl("sw.js"));
+    await registration.update();
+  } catch {
+    // The site continues to work normally if service workers are unavailable.
+  }
+}
+
+updateChannel?.addEventListener("message", (event) => reloadForVersion(String(event.data || "")));
+window.addEventListener("focus", checkForSiteUpdate);
+window.addEventListener("online", checkForSiteUpdate);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") checkForSiteUpdate();
+});
+window.addEventListener("load", () => {
+  enableFreshNavigation();
+  checkForSiteUpdate();
+  window.setInterval(checkForSiteUpdate, 60_000);
+});
