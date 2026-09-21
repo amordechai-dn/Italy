@@ -1,15 +1,25 @@
 import { access, readdir, readFile } from "node:fs/promises";
-import { basename, dirname, join } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const siteScript = await readFile(join(root, "site.js"), "utf8");
-const registeredPages = [...siteScript.matchAll(/\{\s*id:\s*"([^"]+)"\s*,\s*href:\s*"([^"]+)"/g)]
-  .map(([, id, href]) => ({ id, href }));
+const registeredPages = [...siteScript.matchAll(/\{\s*id:\s*"([^"]+)"\s*,\s*href:\s*"([^"]*)"\s*,\s*file:\s*"([^"]+)"/g)]
+  .map(([, id, href, file]) => ({ id, href, file }));
 
-const htmlFiles = (await readdir(root))
-  .filter((file) => file.endsWith(".html") && file !== "index.html")
-  .sort();
+async function collectHtmlFiles(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    if (entry.name === ".git" || entry.name === "node_modules") continue;
+    const fullPath = join(directory, entry.name);
+    if (entry.isDirectory()) files.push(...await collectHtmlFiles(fullPath));
+    else if (entry.name.endsWith(".html")) files.push(relative(root, fullPath));
+  }
+  return files;
+}
+
+const htmlFiles = (await collectHtmlFiles(root)).sort();
 
 const errors = [];
 const cssVersions = new Map();
@@ -18,13 +28,13 @@ for (const file of htmlFiles) {
   const html = await readFile(join(root, file), "utf8");
   if (/<body[^>]*data-redirect/.test(html)) continue;
   const pageId = html.match(/<body[^>]*data-page="([^"]+)"/)?.[1];
-  const registered = registeredPages.find((page) => page.href === file);
-  const cssVersion = html.match(/site\.css\?v=([^"']+)/)?.[1];
+  const registered = registeredPages.find((page) => page.file === file);
+  const cssVersion = html.match(/(?:\.\.\/)*site\.css\?v=([^"']+)/)?.[1];
 
   if (!pageId) errors.push(`${file}: חסר data-page ב-body`);
   if (!registered) errors.push(`${file}: העמוד אינו רשום ב-SITE_PAGES`);
   if (registered && pageId !== registered.id) errors.push(`${file}: data-page אינו תואם לרישום בניווט`);
-  if (!html.includes('src="site.js?v=')) errors.push(`${file}: חסר site.js`);
+  if (!/(?:\.\.\/)*site\.js\?v=/.test(html)) errors.push(`${file}: חסר site.js`);
   if (!html.includes("data-site-header")) errors.push(`${file}: חסרה מעטפת הכותרת המשותפת`);
   if (!html.includes('class="skip-link"')) errors.push(`${file}: חסר קישור דילוג לתוכן הראשי`);
   if (!html.includes('id="main-content"')) errors.push(`${file}: חסרה נקודת כניסה לתוכן הראשי`);
@@ -36,9 +46,9 @@ for (const file of htmlFiles) {
 
   const pageCss = [...html.matchAll(/href="([^"']+\.css)\?v=[^"']+"/g)]
     .map(([, href]) => href)
-    .filter((href) => href !== "site.css");
+    .filter((href) => !/(^|\/)site\.css$/.test(href));
   for (const href of pageCss) {
-    try { await access(join(root, href)); }
+    try { await access(join(root, dirname(file), href)); }
     catch { errors.push(`${file}: קובץ העיצוב ${href} אינו קיים`); }
   }
 
@@ -48,8 +58,8 @@ for (const file of htmlFiles) {
   if (html.includes("<table") && !html.includes("<caption")) errors.push(`${file}: לטבלה חסרה כותרת caption`);
 }
 
-for (const { href } of registeredPages) {
-  if (!htmlFiles.includes(basename(href))) errors.push(`site.js: הקובץ הרשום ${href} אינו קיים`);
+for (const { file } of registeredPages) {
+  if (!htmlFiles.includes(file)) errors.push(`site.js: הקובץ הרשום ${file} אינו קיים`);
 }
 
 if (new Set(cssVersions.values()).size > 1) {

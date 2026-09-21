@@ -1,7 +1,10 @@
 const SITE_PAGES = [
-  { id: "dashboard", href: "dashboard.html", label: "מרכז" },
-  { id: "flights", href: "flights.html", label: "כל הטיסות", count: "38" },
+  { id: "dashboard", href: "", file: "index.html", label: "מרכז" },
+  { id: "flights", href: "flights/", file: "flights/index.html", label: "כל הטיסות", count: "38" },
 ];
+
+const siteRoot = document.documentElement.dataset.siteRoot || ".";
+const siteUrl = (path = "") => `${siteRoot.replace(/\/$/, "")}/${path}`;
 
 function createElement(tag, className, text) {
   const element = document.createElement(tag);
@@ -16,13 +19,13 @@ function buildSiteHeader() {
 
   const activePage = document.body.dataset.page;
   const brand = createElement("a", "site-brand");
-  brand.href = "dashboard.html";
+  brand.href = siteUrl();
   brand.setAttribute("aria-label", "צפון איטליה 2027 — השוואת טיסות ותכנון");
 
   const mark = createElement("span", "brand-mark");
   mark.setAttribute("aria-hidden", "true");
   const logo = createElement("img", "brand-logo");
-  logo.src = "assets/italy-mark.svg";
+  logo.src = siteUrl("assets/italy-mark.svg");
   logo.alt = "";
   logo.width = 40;
   logo.height = 40;
@@ -42,7 +45,7 @@ function buildSiteHeader() {
 
   SITE_PAGES.forEach((page) => {
     const link = createElement("a", "page-tab");
-    link.href = page.href;
+    link.href = siteUrl(page.href);
     if (page.id === activePage) link.setAttribute("aria-current", "page");
     link.append(createElement("span", "", page.label));
     if (page.count) {

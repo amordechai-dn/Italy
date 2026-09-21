@@ -2,6 +2,6 @@
   "name": "italy-flight-comparison",
   "private": true,
   "scripts": {
-    "check": "node scripts/verify-site.mjs && node --check site.js && node --check flights.js && npx --yes html-validate@11.16.0 *.html"
+    "check": "node scripts/verify-site.mjs && node --check site.js && node --check flights.js && node --check redirect.js && npx --yes html-validate@11.16.0 \"**/*.html\""
   }
 }

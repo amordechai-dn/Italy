@@ -1,14 +1,61 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-site-root=".">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=dashboard.html">
+  <meta name="description" content="מרכז התכנון לטיול בצפון איטליה — טיסות, תאריכים ובהמשך גם מלונות.">
+  <link rel="canonical" href="https://amordechai-dn.github.io/Italy/">
+  <meta name="theme-color" content="#123c8c">
   <link rel="icon" href="assets/italy-mark.svg" type="image/svg+xml">
-  <link rel="canonical" href="https://amordechai-dn.github.io/Italy/dashboard.html">
-  <title>צפון איטליה 2027</title>
+  <title>מרכז הטיול לצפון איטליה</title>
+  <link rel="stylesheet" href="site.css?v=20">
+  <link rel="stylesheet" href="dashboard.css?v=3">
+  <script src="site.js?v=6" defer></script>
 </head>
-<body>
-  <p><a href="dashboard.html">מעבר למרכז הטיול</a></p>
+<body data-page="dashboard">
+<a class="skip-link" href="#main-content">דלגו לתוכן הראשי</a>
+<main>
+  <header class="site-header" data-site-header aria-label="ניווט באתר"></header>
+
+  <header class="hero" id="main-content" tabindex="-1">
+    <p class="eyebrow">תכנון הטיול · צפון איטליה <bdi dir="ltr">2027</bdi></p>
+    <h1>מרכז הטיול</h1>
+    <p>כל ההחלטות וההשוואות במקום אחד — מטיסות ותאריכים ועד המלונות שנוסיף בהמשך.</p>
+  </header>
+
+  <section class="journey-summary" aria-label="פרטי הטיול">
+    <div class="journey-fact"><span>נוסעים</span><strong><bdi dir="ltr">2</bdi> מבוגרים</strong></div>
+    <div class="journey-fact"><span>משך</span><strong><bdi dir="ltr">7</bdi> לילות</strong></div>
+    <div class="journey-fact"><span>מסלול טיסות</span><strong dir="ltr">TLV → MXP · VCE → TLV</strong></div>
+    <div class="journey-fact"><span>העדפה נוכחית</span><strong><bdi dir="ltr">1–8</bdi> ביוני</strong></div>
+  </section>
+
+  <div class="section-heading"><h2>תכנון הטיול</h2></div>
+  <section class="dashboard-grid" aria-label="תחומי התכנון באתר">
+    <a class="dashboard-card" href="flights/">
+      <div class="card-top"><span class="card-kicker">השוואה מלאה</span><span class="card-status">פעיל</span></div>
+      <h2>טיסות</h2>
+      <p>כל אפשרויות הטיסה הישירה שמצאנו, עם מחירים, שעות, תאריכים וסינון.</p>
+      <div class="card-meta"><span><bdi dir="ltr">38</bdi> אפשרויות</span><span>מחיר נמוך: <bdi dir="ltr">3,150 ₪</bdi></span></div>
+      <span class="card-action">לכל הטיסות ←</span>
+    </a>
+
+    <a class="dashboard-card" href="flights/#may-june">
+      <div class="card-top"><span class="card-kicker">השוואה ממוקדת</span><span class="card-status">נבחר</span></div>
+      <h2>מאי–יוני</h2>
+      <p>מזג אוויר, חוויית הטיול והאפשרויות הרלוונטיות ביותר לתקופה המועדפת.</p>
+      <div class="card-meta"><span><bdi dir="ltr">8</bdi> אפשרויות</span><span>מועדף: <bdi dir="ltr">1–8</bdi> ביוני</span></div>
+      <span class="card-action">לאזור מאי–יוני ←</span>
+    </a>
+
+    <article class="dashboard-card is-future">
+      <div class="card-top"><span class="card-kicker">לינה</span><span class="card-status">בקרוב</span></div>
+      <h2>מלונות</h2>
+      <p>כאן ירוכזו בהמשך המלונות במילאנו, באזור אגם קומו ובוונציה.</p>
+      <div class="card-meta"><span>מילאנו</span><span>אגם קומו</span><span>ונציה</span></div>
+      <span class="card-action">העמוד יתווסף בהמשך</span>
+    </article>
+  </section>
+</main>
 </body>
 </html>
