@@ -1,7 +1,7 @@
 .journey-summary { display:flex; flex-wrap:wrap; gap:10px 28px; padding:17px 4px; border-bottom:1px solid var(--line); }
 .journey-fact { display:grid; gap:2px; }
-.journey-fact span { color:var(--muted); font-size:12px; font-weight:750; }
-.journey-fact strong { font-size:15px; }
+.journey-fact span { color:var(--muted); font-size:var(--type-xs); font-weight:var(--weight-semibold); }
+.journey-fact strong { font-size:var(--type-md); font-weight:var(--weight-semibold); }
 .dashboard-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid var(--line); }
 .dashboard-card {
   position:relative; display:flex; min-height:230px; flex-direction:column; padding:28px 24px;
@@ -12,13 +12,13 @@ a.dashboard-card:nth-child(odd) { border-inline-end:1px solid var(--line); }
 a.dashboard-card:hover { color:var(--blue); background:color-mix(in srgb,var(--blue-soft) 42%,transparent); }
 a.dashboard-card:focus-visible { outline:3px solid color-mix(in srgb,var(--blue) 30%,transparent); outline-offset:3px; }
 .card-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
-.card-kicker { color:var(--blue); font-size:12px; font-weight:850; }
-.card-status { color:var(--good); font-size:11px; font-weight:850; }
+.card-kicker { color:var(--blue); font-size:var(--type-xs); font-weight:var(--weight-bold); }
+.card-status { color:var(--good); font-size:var(--type-xs); font-weight:var(--weight-bold); }
 .card-status::before { content:"•"; margin-inline-end:5px; }
-.dashboard-card h2 { margin:20px 0 7px; font-size:27px; line-height:1.2; letter-spacing:-.025em; }
-.dashboard-card p { margin:0; color:var(--muted); font-size:14px; }
-.card-meta { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:18px; color:var(--muted); font-size:12px; }
-.card-action { margin-top:auto; padding-top:22px; color:var(--blue); font-size:13px; font-weight:850; }
+.dashboard-card h2 { margin:20px 0 7px; font-size:var(--type-2xl); line-height:1.2; font-weight:var(--weight-bold); letter-spacing:-.02em; }
+.dashboard-card p { margin:0; color:var(--muted); font-size:var(--type-md); }
+.card-meta { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:18px; color:var(--muted); font-size:var(--type-sm); }
+.card-action { margin-top:auto; padding-top:22px; color:var(--blue); font-size:var(--type-sm); font-weight:var(--weight-bold); }
 .dashboard-card.is-future { background:transparent; }
 .dashboard-card.is-future .card-status { color:var(--muted); }
 .dashboard-card.is-future .card-action { color:var(--muted); }

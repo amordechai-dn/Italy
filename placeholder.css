@@ -12,11 +12,11 @@
   display:block;
   margin:0 0 12px;
   color:var(--blue);
-  font-size:12px;
-  font-weight:850;
+  font-size:var(--type-xs);
+  font-weight:var(--weight-bold);
 }
-.coming-soon h2 { margin:0; font-size:clamp(25px,3vw,36px); letter-spacing:-.025em; }
-.coming-soon p { margin:10px 0 0; color:var(--muted); font-size:15px; }
+.coming-soon h2 { margin:0; font-size:clamp(1.75rem,3vw,2.25rem); font-weight:var(--weight-bold); letter-spacing:-.02em; }
+.coming-soon p { margin:10px 0 0; color:var(--muted); font-size:var(--type-md); }
 .coming-soon-mark {
   display:grid;
   place-items:center;
@@ -31,8 +31,8 @@
   margin-top:22px;
   color:var(--blue);
   text-decoration:none;
-  font-size:14px;
-  font-weight:850;
+  font-size:var(--type-sm);
+  font-weight:var(--weight-bold);
 }
 .back-home:hover { text-decoration:underline; text-underline-offset:4px; }
 @media (max-width:620px) {
