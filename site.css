@@ -119,6 +119,17 @@ body::before {
   background:var(--page-wash);
 }
 
+body::after {
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 8% 32%,color-mix(in srgb,var(--blue-soft) 58%,transparent) 0,transparent 26%),
+    radial-gradient(circle at 92% 68%,color-mix(in srgb,var(--green-soft) 52%,transparent) 0,transparent 25%);
+}
+
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -134,7 +145,7 @@ bdi,
 .price,
 .date-range,
 .flight,
-.journey-fact strong {
+.page-fact strong {
   font-family: inherit;
   font-variant-numeric: tabular-nums lining-nums;
 }
@@ -373,32 +384,6 @@ main {
   color: var(--muted);
   font-size: var(--type-md);
 }
-.hero .trip-strip {
-  position: relative;
-  z-index: 1;
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap: 0;
-  margin-top: 22px;
-}
-.hero .trip-strip span {
-  min-height: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  backdrop-filter: none;
-  color: var(--muted);
-  font-size: var(--type-sm);
-  font-weight: var(--weight-semibold);
-}
-.hero .trip-strip span + span {
-  margin-inline-start: 16px;
-  padding-inline-start: 16px;
-  border-inline-start: 1px solid var(--line);
-}
-
 .route {
   display: inline-block;
   direction: ltr;
@@ -406,16 +391,23 @@ main {
   white-space: nowrap;
 }
 
-/* Editorial content stays on the page; containers are reserved for controls and data. */
-.quick-summary {
+/* Every page uses the same summary strip directly below its hero. */
+.page-summary {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
   width:min(100%,var(--content-max-width));
   margin-inline:auto;
-  padding: 16px 4px;
-  border: 0;
+  padding:22px 0;
   border-bottom: 1px solid var(--line);
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
+}
+.page-fact { display:grid; gap:3px; min-width:0; padding-inline:20px; text-align:center; }
+.page-fact + .page-fact { border-inline-start:1px solid var(--line); }
+.page-fact span { color:var(--muted); font-size:var(--type-xs); font-weight:var(--weight-semibold); }
+.page-fact strong { font-size:var(--type-md); font-weight:var(--weight-semibold); }
+.page-fact strong[dir="ltr"] { white-space:nowrap; }
+.page-fact strong,
+.page-fact bdi {
+  font-variant-numeric:tabular-nums lining-nums;
 }
 
 .section-title,
@@ -527,10 +519,11 @@ tbody tr:last-child td { border-bottom: 0; }
   .hero h1 { font-size: 2.125rem; }
   .hero::after { display:block; bottom:24px; }
   .hero > p:not(.eyebrow) { margin-top: 13px; font-size: var(--type-md); }
-  .hero .trip-strip { display: grid; gap: 8px; margin-top: 18px; }
-  .hero .trip-strip span { width:max-content; justify-self:center; }
-  .hero .trip-strip span + span { margin-inline-start: 0; padding-inline-start: 0; border-inline-start: 0; }
-  .quick-summary { padding-inline: 2px; }
+  .page-summary { grid-template-columns:1fr 1fr; padding-block:16px; }
+  .page-fact { padding:12px 8px; }
+  .page-fact + .page-fact { border-inline-start:0; }
+  .page-fact:nth-child(even) { border-inline-start:1px solid var(--line); }
+  .page-fact:nth-child(n+3) { border-top:1px solid var(--line); }
   .section-title,
   .section-heading { margin:24px auto 10px; }
   .section-title,

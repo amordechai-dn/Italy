@@ -30,6 +30,8 @@ for (const file of htmlFiles) {
   const pageId = html.match(/<body[^>]*data-page="([^"]+)"/)?.[1];
   const registered = registeredPages.find((page) => page.file === file);
   const cssVersion = html.match(/(?:\.\.\/)*site\.css\?v=([^"']+)/)?.[1];
+  const classLists = [...html.matchAll(/\bclass="([^"]*)"/g)].map(([, value]) => value.split(/\s+/));
+  const classCount = (className) => classLists.filter((classList) => classList.includes(className)).length;
 
   if (!pageId) errors.push(`${file}: חסר data-page ב-body`);
   if (!registered) errors.push(`${file}: העמוד אינו רשום ב-SITE_PAGES`);
@@ -37,6 +39,10 @@ for (const file of htmlFiles) {
   if (!/(?:\.\.\/)*site\.js\?v=/.test(html)) errors.push(`${file}: חסר site.js`);
   if (!/(?:\.\.\/)*theme\.js\?v=/.test(html)) errors.push(`${file}: חסר theme.js`);
   if (!html.includes("data-site-header")) errors.push(`${file}: חסרה מעטפת הכותרת המשותפת`);
+  for (const [className, label] of [["hero", "כותרת עמוד"], ["page-summary", "פס סיכום"]]) {
+    if (classCount(className) !== 1) errors.push(`${file}: נדרש ${label} משותף אחד; נמצאו ${classCount(className)}`);
+  }
+  if (classCount("section-heading") < 1) errors.push(`${file}: נדרשת לפחות כותרת מקטע משותפת אחת`);
   if (!html.includes('class="skip-link"')) errors.push(`${file}: חסר קישור דילוג לתוכן הראשי`);
   if (!html.includes('id="main-content"')) errors.push(`${file}: חסרה נקודת כניסה לתוכן הראשי`);
   if (/<style[\s>]/.test(html)) errors.push(`${file}: עיצוב פנימי אסור; יש להעביר אותו לקובץ CSS`);
