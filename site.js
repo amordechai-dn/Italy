@@ -1,7 +1,6 @@
 const SITE_PAGES = [
   { id: "dashboard", href: "dashboard.html", label: "מרכז" },
   { id: "flights", href: "flights.html", label: "כל הטיסות", count: "38" },
-  { id: "may-june", href: "may-june.html", label: "מאי–יוני", count: "8" },
 ];
 
 function createElement(tag, className, text) {

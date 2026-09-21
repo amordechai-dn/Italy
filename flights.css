@@ -4,6 +4,29 @@
 .quick-item { display:flex; align-items:baseline; gap:7px; font-size:14px; }
 .quick-item strong { color:var(--blue); font-size:16px; }
 .quick-item + .quick-item { padding-inline-start:24px; border-inline-start:1px solid var(--line); }
+.season-focus { scroll-margin-top:78px; }
+.season-heading { align-items:center; }
+.section-kicker { margin:0 0 4px; color:var(--blue); font-size:12px; font-weight:850; }
+.section-jump {
+  color:var(--blue); text-decoration:none; font-size:13px; font-weight:800;
+}
+.section-jump:hover { text-decoration:underline; text-underline-offset:4px; }
+.recommendation { display:grid; grid-template-columns:auto 1fr; gap:18px; align-items:center; }
+.recommendation .icon { display:grid; place-items:center; width:48px; height:48px; color:var(--green); font-size:24px; }
+.recommendation h3 { margin:0; color:var(--green); font-size:19px; }
+.recommendation p { max-width:980px; margin:3px 0 0; color:var(--muted); font-size:14px; }
+.month-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border-block:1px solid var(--line); }
+.month-card { padding:22px 24px; }
+.month-card + .month-card { border-inline-start:1px solid var(--line); }
+.month-card h3 { margin:0 0 12px; color:var(--blue); font-size:22px; }
+.month-card ul { display:grid; gap:9px; margin:0; padding:0; list-style:none; }
+.month-card li { position:relative; padding-inline-start:20px; color:var(--muted); font-size:14px; }
+.month-card li::before { content:"✓"; position:absolute; inset-inline-start:0; color:var(--green); font-weight:900; }
+.month-card .caution::before { content:"•"; color:#c77a11; }
+.decision { margin:0; padding:16px 4px; color:var(--muted); border-bottom:1px solid var(--line); font-size:14px; }
+.decision strong { color:var(--text); }
+.recommended-row { background:var(--green-soft)!important; }
+.focus-badge { display:inline-flex; margin-top:4px; padding:2px 7px; color:var(--green); border-radius:999px; background:var(--panel); font-size:10px; font-weight:850; }
 .filter-panel {
   margin-top:24px; padding:18px; background:var(--panel); border:1px solid var(--line);
   border-radius:18px; box-shadow:0 10px 32px rgba(22,47,92,.06);
@@ -85,6 +108,13 @@ tbody tr:hover { background:color-mix(in srgb,var(--blue-soft) 72%,transparent);
   .quick-summary { display:grid; gap:8px; }
   .quick-item { justify-content:space-between; }
   .quick-item + .quick-item { padding:8px 0 0; border-inline-start:0; border-top:1px solid var(--line); }
+  .season-heading { display:flex; align-items:start; flex-direction:column; gap:8px; }
+  .section-jump { flex:0 0 auto; }
+  .recommendation { grid-template-columns:1fr; gap:9px; }
+  .recommendation .icon { width:42px; height:42px; }
+  .month-grid { grid-template-columns:1fr; }
+  .month-card { padding:18px 2px; }
+  .month-card + .month-card { border-inline-start:0; border-top:1px solid var(--line); }
   .filter-panel { margin-top:14px; padding:0; overflow:hidden; border-radius:15px; }
   .filter-panel-header { align-items:center; margin:0; padding:14px 15px; border-bottom:1px solid var(--line); }
   .filter-panel h2 { font-size:18px; }

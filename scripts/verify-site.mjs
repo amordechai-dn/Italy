@@ -16,6 +16,7 @@ const cssVersions = new Map();
 
 for (const file of htmlFiles) {
   const html = await readFile(join(root, file), "utf8");
+  if (/<body[^>]*data-redirect/.test(html)) continue;
   const pageId = html.match(/<body[^>]*data-page="([^"]+)"/)?.[1];
   const registered = registeredPages.find((page) => page.href === file);
   const cssVersion = html.match(/site\.css\?v=([^"']+)/)?.[1];
