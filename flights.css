@@ -28,6 +28,10 @@
 .recommendation-note strong { color:var(--text); }
 .recommended-row { background:var(--green-soft)!important; }
 .focus-badge { display:inline-flex; margin-top:4px; color:var(--green); font-size:var(--type-xs); font-weight:var(--weight-bold); }
+.recent-checks-heading { align-items:end; }
+.recent-checks-heading .section-kicker { margin-bottom:5px; }
+.recent-checks-table { min-width:1240px; }
+.cell-note { display:block; margin-top:4px; color:var(--muted); font-size:var(--type-xs); font-weight:var(--weight-medium); }
 .filter-panel {
   width:min(100%,var(--content-max-width)); margin:24px auto 0; padding:20px 0; background:transparent; border-block:1px solid var(--line);
 }

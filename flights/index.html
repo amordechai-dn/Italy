@@ -33,6 +33,49 @@
     <div class="page-fact"><span>סוג כרטיס</span><strong>ישיר · <bdi dir="ltr" lang="en">Classic</bdi> · מזוודה</strong></div>
   </section>
 
+  <div class="section-heading recent-checks-heading">
+    <div>
+      <p class="section-kicker">נבדק מחדש ב־<bdi dir="ltr">26/9/2026</bdi></p>
+      <h2 id="recent-checks-title">שלושת התאריכים שבמוקד</h2>
+    </div>
+  </div>
+  <section class="table-shell recent-checks" aria-labelledby="recent-checks-title">
+    <p class="table-scroll-hint" id="recent-checks-scroll-hint">אפשר לגלול את הטבלה לצדדים כדי לראות את כל העמודות.</p>
+    <div class="table-scroll" tabindex="0" aria-describedby="recent-checks-scroll-hint"><table class="recent-checks-table">
+      <caption class="sr-only">השוואה עדכנית של שלושת התאריכים שנבדקו באל על וב־Wizz Air</caption>
+      <thead><tr>
+        <th scope="col" class="index-col" aria-label="מספר סידורי">מס׳</th>
+        <th scope="col">תאריכים</th>
+        <th scope="col">ימי השבוע</th>
+        <th scope="col">מחיר לזוג</th>
+        <th scope="col">מחיר לאדם</th>
+        <th scope="col">טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></th>
+        <th scope="col">טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></th>
+        <th scope="col"><bdi dir="ltr" lang="en">Wizz Air</bdi></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="index-cell">1</td><td><div class="date-range"><bdi>24/5</bdi><span class="to">עד</span><bdi>31/5</bdi></div></td><td class="days">שני עד שני</td>
+          <td class="price"><span class="ils">כ־4,168 ₪</span><span class="usd">$1,374</span></td><td class="price"><span class="ils">כ־2,084 ₪</span><span class="usd">$687</span></td>
+          <td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td>
+          <td><span class="unavailable">אין מסלול ישיר מלא</span><span class="cell-note">הלוך בלבד: <bdi dir="ltr">€309.58</bdi> לזוג</span></td>
+        </tr>
+        <tr class="recommended-row">
+          <td class="index-cell">2</td><td><div class="date-range"><bdi>1/6</bdi><span class="to">עד</span><bdi>8/6</bdi></div></td><td class="days">שלישי עד שלישי</td>
+          <td class="price best"><span class="ils">כ־3,458 ₪</span><span class="usd">$1,140</span></td><td class="price best"><span class="ils">כ־1,729 ₪</span><span class="usd">$570</span></td>
+          <td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td>
+          <td class="unavailable">אין מסלול ישיר מלא</td>
+        </tr>
+        <tr>
+          <td class="index-cell">3</td><td><div class="date-range"><bdi>8/6</bdi><span class="to">עד</span><bdi>15/6</bdi></div></td><td class="days">שלישי עד שלישי</td>
+          <td class="price"><span class="ils">כ־3,985 ₪</span><span class="usd">$1,314</span></td><td class="price"><span class="ils">כ־1,993 ₪</span><span class="usd">$657</span></td>
+          <td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td>
+          <td class="unavailable">אין מסלול ישיר מלא</td>
+        </tr>
+      </tbody>
+    </table></div>
+  </section>
+
   <section class="date-recommendations" id="recommended-dates" aria-labelledby="recommended-dates-title">
     <div class="section-heading recommendation-heading">
       <div>
@@ -90,9 +133,9 @@
   </section>
 
   <div class="section-heading"><h2>כל האפשרויות</h2></div>
-  <section class="table-shell" aria-label="טבלת השוואת טיסות">
+  <section class="table-shell all-flights-table-shell" aria-label="טבלת השוואת טיסות">
     <p class="table-scroll-hint" id="flights-scroll-hint">אפשר לגלול את הטבלה לצדדים כדי לראות את כל העמודות.</p>
-    <div class="table-scroll" tabindex="0" aria-describedby="flights-scroll-hint"><table>
+    <div class="table-scroll" tabindex="0" aria-describedby="flights-scroll-hint"><table id="all-flights-table">
       <caption class="sr-only">השוואת טיסות אל על ישירות לצפון איטליה עבור שני מבוגרים, כולל תאריכים, מחירים ושעות</caption>
       <thead><tr>
         <th scope="col" class="index-col" aria-label="מספר סידורי">מס׳</th>
@@ -130,10 +173,10 @@
         <tr><td>אפריל 2027</td><td><div class="date-range"><bdi>19/04</bdi><span class="to">עד</span><bdi>26/04</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,686 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
         <tr><td>אפריל 2027</td><td><div class="date-range"><bdi>20/04</bdi><span class="to">עד</span><bdi>27/04</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="unavailable">לא זמין</td><td class="unavailable">לא זמין</td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td class="unavailable">אין טיסה ישירה</td></tr>
         <tr><td>מאי 2027</td><td><div class="date-range"><bdi>23/05</bdi><span class="to">עד</span><bdi>30/05</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־5,373 ₪</span><span class="usd">$1,774.34</span></td><td class="price"><span class="ils">כ־2,686 ₪</span><span class="usd">$887.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
-        <tr><td>מאי 2027</td><td><div class="date-range"><bdi>24/05</bdi><span class="to">עד</span><bdi>31/05</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,785 ₪</span><span class="usd">$1,580.34</span></td><td class="price"><span class="ils">כ־2,393 ₪</span><span class="usd">$790.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
+        <tr><td>מאי 2027</td><td><div class="date-range"><bdi>24/05</bdi><span class="to">עד</span><bdi>31/05</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,168 ₪</span><span class="usd">$1,374</span></td><td class="price"><span class="ils">כ־2,084 ₪</span><span class="usd">$687</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
         <tr><td>מאי 2027</td><td><div class="date-range"><bdi>18/05</bdi><span class="to">עד</span><bdi>25/05</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,913 ₪</span><span class="usd">$1,292.34</span></td><td class="price"><span class="ils">כ־1,957 ₪</span><span class="usd">$646.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
-        <tr class="recommended-row"><td>יוני 2027<br><span class="focus-badge">מומלץ</span></td><td><div class="date-range"><bdi>01/06</bdi><span class="to">עד</span><bdi>08/06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price best"><span class="ils">כ־3,458 ₪</span><span class="usd">$1,142</span></td><td class="price best"><span class="ils">כ־1,729 ₪</span><span class="usd">$571</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
-        <tr><td>יוני 2027</td><td><div class="date-range"><bdi>08/06</bdi><span class="to">עד</span><bdi>15/06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,985 ₪</span><span class="usd">$1,316</span></td><td class="price"><span class="ils">כ־1,992 ₪</span><span class="usd">$658</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr class="recommended-row"><td>יוני 2027<br><span class="focus-badge">מומלץ</span></td><td><div class="date-range"><bdi>01/06</bdi><span class="to">עד</span><bdi>08/06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price best"><span class="ils">כ־3,458 ₪</span><span class="usd">$1,140</span></td><td class="price best"><span class="ils">כ־1,729 ₪</span><span class="usd">$570</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr><td>יוני 2027</td><td><div class="date-range"><bdi>08/06</bdi><span class="to">עד</span><bdi>15/06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,985 ₪</span><span class="usd">$1,314</span></td><td class="price"><span class="ils">כ־1,993 ₪</span><span class="usd">$657</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
         <tr><td>יוני 2027</td><td><div class="date-range"><bdi>20/06</bdi><span class="to">עד</span><bdi>27/06</bdi></div></td><td class="days">ראשון עד ראשון</td><td class="price"><span class="ils">כ־4,591 ₪</span><span class="usd">$1,516.34</span></td><td class="price"><span class="ils">כ־2,296 ₪</span><span class="usd">$758.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שני</span></div></td></tr>
         <tr><td>יוני 2027</td><td><div class="date-range"><bdi>21/06</bdi><span class="to">עד</span><bdi>28/06</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,337 ₪</span><span class="usd">$1,432.34</span></td><td class="price"><span class="ils">כ־2,169 ₪</span><span class="usd">$716.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
         <tr><td>יוני 2027</td><td><div class="date-range"><bdi>22/06</bdi><span class="to">עד</span><bdi>29/06</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,980 ₪</span><span class="usd">$1,314.34</span></td><td class="price"><span class="ils">כ־1,990 ₪</span><span class="usd">$657.17</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
@@ -147,8 +190,8 @@
     </table></div>
     <p class="empty-state" hidden>לא נמצאו תוצאות. אפשר לאפס את הסינון ולנסות שוב.</p>
   </section>
-  <p class="source">מידע עונתי: <a href="https://www.italia.it/en/italy/seasons" dir="ltr" lang="en">Italia.it</a> ו־<a href="https://www.yesmilano.it/en/articles/best-time-visit-milano" dir="ltr" lang="en">YesMilano</a>. מחירי אל על למסלולי ראשון–ראשון, שני–שני ושלישי–שלישי נבדקו ב־20 בספטמבר 2026. "לא זמין" מציין שלא נמצא שילוב טיסות ישיר מלא; כאשר הסיבה ידועה היא מופיעה בעמודת החזור. המחירים בשקלים הם בקירוב, לפי שער <bdi dir="ltr">$1 = 3.0280 ₪</bdi> של בנק ישראל מ־18 בספטמבר 2026.</p>
+  <p class="source">מידע עונתי: <a href="https://www.italia.it/en/italy/seasons" dir="ltr" lang="en">Italia.it</a> ו־<a href="https://www.yesmilano.it/en/articles/best-time-visit-milano" dir="ltr" lang="en">YesMilano</a>. שלוש הבדיקות הממוקדות באל על וב־<bdi dir="ltr" lang="en">Wizz Air</bdi> בוצעו ב־26 בספטמבר 2026; מחיריהן בשקלים חושבו לפי שער <bdi dir="ltr">$1 = 3.033 ₪</bdi> של בנק ישראל. יתר מחירי אל על נבדקו ב־20 בספטמבר 2026 וחושבו לפי שער <bdi dir="ltr">$1 = 3.0280 ₪</bdi>. "לא זמין" מציין שלא נמצא שילוב טיסות ישיר מלא.</p>
 </main>
-<script src="../flights.js?v=2" defer></script>
+<script src="../flights.js?v=3" defer></script>
 </body>
 </html>

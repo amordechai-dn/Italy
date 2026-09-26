@@ -1,5 +1,6 @@
-  const rows = [...document.querySelectorAll('tbody tr')];
-  const tbody = document.querySelector('tbody');
+  const comparisonTable = document.querySelector('#all-flights-table');
+  const tbody = comparisonTable.tBodies[0];
+  const rows = [...tbody.rows];
   const resultCount = document.querySelector('.result-count');
   const emptyState = document.querySelector('.empty-state');
   const activeSummary = document.querySelector('.active-summary');
