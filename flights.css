@@ -32,6 +32,7 @@
 .recent-checks-heading .section-kicker { margin-bottom:5px; }
 .recent-checks-table { min-width:1240px; }
 .cell-note { display:block; margin-top:4px; color:var(--muted); font-size:var(--type-xs); font-weight:var(--weight-medium); }
+.available { color:var(--good); }
 .filter-panel {
   width:min(100%,var(--content-max-width)); margin:24px auto 0; padding:20px 0; background:transparent; border-block:1px solid var(--line);
 }
