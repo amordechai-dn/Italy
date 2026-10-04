@@ -39,7 +39,7 @@
         <p class="section-kicker">המלצה משוקללת</p>
         <h2 id="recommended-dates-title">התאריכים שהכי כדאי לבחור</h2>
       </div>
-      <a class="section-jump" href="#filter-panel-title">לטבלת הטיסות ↓</a>
+      <a class="section-jump" href="#all-flights">לכל הטיסות והסינון ↓</a>
     </div>
 
     <p class="recommendation-intro">הדירוג משלב מזג אוויר נעים, טיסת הלוך מוקדמת, טיסת חזור מאוחרת ומחיר לזוג.</p>
@@ -63,6 +63,37 @@
     <p class="recommendation-note"><strong>שורה תחתונה:</strong> <bdi dir="ltr">1/6–8/6</bdi> נותן את האיזון הטוב ביותר וגם את המחיר הנמוך ביותר מבין שלוש ההמלצות. ב־<bdi dir="ltr">2/6</bdi> חל חג הרפובליקה באיטליה, ולכן כדאי להזמין מראש אטרקציות ומסעדות לאותו יום.</p>
   </section>
 
+  <div class="section-heading chosen-dates-heading">
+    <div>
+      <p class="section-kicker">הבחירה שלך</p>
+      <h2 id="chosen-dates-title">שלושת התאריכים שנבדקו</h2>
+    </div>
+  </div>
+  <section class="table-shell chosen-dates" aria-labelledby="chosen-dates-title">
+    <p class="table-scroll-hint" id="chosen-dates-scroll-hint">אפשר לגלול את הטבלה לצדדים כדי לראות את כל העמודות.</p>
+    <div class="table-scroll" tabindex="0" aria-describedby="chosen-dates-scroll-hint"><table class="chosen-dates-table">
+      <caption class="sr-only">שלושת תאריכי הטיסה שנבחרו, לפי סדר כרונולוגי</caption>
+      <thead><tr>
+        <th scope="col" class="index-col" aria-label="מספר סידורי">מס׳</th>
+        <th scope="col">חודש</th>
+        <th scope="col">תאריכים</th>
+        <th scope="col">ימי השבוע</th>
+        <th scope="col">מחיר לזוג</th>
+        <th scope="col">מחיר לאדם</th>
+        <th scope="col">טיסת הלוך<br><span class="route" dir="ltr">TLV → MXP</span></th>
+        <th scope="col">טיסת חזור<br><span class="route" dir="ltr">VCE → TLV</span></th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="index-cell">1</td><td>מאי <bdi dir="ltr">2027</bdi></td><td><div class="date-range"><bdi>24/5</bdi><span class="to">עד</span><bdi>31/5</bdi></div></td><td class="days">שני עד שני</td><td class="price"><span class="ils">כ־4,168 ₪</span><span class="usd">$1,374</span></td><td class="price"><span class="ils">כ־2,084 ₪</span><span class="usd">$687</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום שלישי</span></div></td></tr>
+        <tr class="recommended-row"><td class="index-cell">2</td><td>יוני <bdi dir="ltr">2027</bdi><br><span class="focus-badge">מומלץ</span></td><td><div class="date-range"><bdi>1/6</bdi><span class="to">עד</span><bdi>8/6</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price best"><span class="ils">כ־3,458 ₪</span><span class="usd">$1,140</span></td><td class="price best"><span class="ils">כ־1,729 ₪</span><span class="usd">$570</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+        <tr><td class="index-cell">3</td><td>יוני <bdi dir="ltr">2027</bdi></td><td><div class="date-range"><bdi>8/6</bdi><span class="to">עד</span><bdi>15/6</bdi></div></td><td class="days">שלישי עד שלישי</td><td class="price"><span class="ils">כ־3,985 ₪</span><span class="usd">$1,314</span></td><td class="price"><span class="ils">כ־1,993 ₪</span><span class="usd">$657</span></td><td><div class="flight"><bdi class="flight-no">LY 381</bdi><bdi class="flight-time">07:35–10:45</bdi></div></td><td><div class="flight"><bdi class="flight-no">LY 290</bdi><bdi class="flight-time">22:05–02:25</bdi><span class="next-day">נחיתה ביום רביעי</span></div></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <details class="all-flights-disclosure" id="all-flights">
+    <summary><span><strong>כל הטיסות</strong><small>סינון, מיון ו־<bdi dir="ltr">38</bdi> אפשרויות</small></span><span class="all-flights-toggle">פתיחה</span></summary>
+    <div class="all-flights-content">
   <section class="filter-panel" aria-labelledby="filter-panel-title">
     <div class="filter-panel-header">
       <div>
@@ -147,6 +178,8 @@
     </table></div>
     <p class="empty-state" hidden>לא נמצאו תוצאות. אפשר לאפס את הסינון ולנסות שוב.</p>
   </section>
+    </div>
+  </details>
   <p class="source">מידע עונתי: <a href="https://www.italia.it/en/italy/seasons" dir="ltr" lang="en">Italia.it</a> ו־<a href="https://www.yesmilano.it/en/articles/best-time-visit-milano" dir="ltr" lang="en">YesMilano</a>. מחירי אל על למסלולי ראשון–ראשון, שני–שני ושלישי–שלישי נבדקו ב־20 בספטמבר 2026. שלוש הבדיקות המעודכנות ל־<bdi dir="ltr">24/5–31/5</bdi>, <bdi dir="ltr">1/6–8/6</bdi> ו־<bdi dir="ltr">8/6–15/6</bdi> בוצעו ב־26 בספטמבר 2026. המחירים בשקלים הם בקירוב, לפי שערי בנק ישראל במועד הבדיקה.</p>
 </main>
 <script src="../flights.js?v=3" defer></script>

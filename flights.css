@@ -28,6 +28,20 @@
 .recommendation-note strong { color:var(--text); }
 .recommended-row { background:var(--green-soft)!important; }
 .focus-badge { display:inline-flex; margin-top:4px; color:var(--green); font-size:var(--type-xs); font-weight:var(--weight-bold); }
+.chosen-dates-heading { align-items:end; }
+.chosen-dates-heading .section-kicker { margin-bottom:5px; }
+.chosen-dates-table { min-width:1120px; }
+.all-flights-disclosure { width:min(100%,var(--content-max-width)); margin:40px auto 0; border-block:1px solid var(--line); scroll-margin-top:82px; }
+.all-flights-disclosure > summary { display:flex; align-items:center; justify-content:space-between; gap:20px; min-height:72px; cursor:pointer; list-style:none; }
+.all-flights-disclosure > summary::-webkit-details-marker { display:none; }
+.all-flights-disclosure > summary strong { display:block; color:var(--text); font-size:var(--type-xl); font-weight:var(--weight-bold); }
+.all-flights-disclosure > summary small { display:block; margin-top:3px; color:var(--muted); font-size:var(--type-sm); font-weight:var(--weight-medium); }
+.all-flights-toggle { color:var(--blue); font-size:var(--type-sm); font-weight:var(--weight-bold); }
+.all-flights-toggle::after { content:" +"; }
+.all-flights-disclosure[open] .all-flights-toggle { font-size:0; }
+.all-flights-disclosure[open] .all-flights-toggle::after { content:"סגירה −"; font-size:var(--type-sm); }
+.all-flights-content { padding-bottom:2px; }
+.all-flights-content .filter-panel { margin-top:0; }
 .filter-panel {
   width:min(100%,var(--content-max-width)); margin:24px auto 0; padding:20px 0; background:transparent; border-block:1px solid var(--line);
 }
@@ -114,6 +128,10 @@ tbody tr:hover { background:color-mix(in srgb,var(--blue-soft) 72%,transparent);
   .choice-facts div { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
   .choice-facts dd { text-align:end; }
   .recommendation-note { padding-inline:2px; }
+  .chosen-dates-heading { align-items:start; }
+  .all-flights-disclosure { margin-top:28px; }
+  .all-flights-disclosure > summary { min-height:64px; }
+  .all-flights-disclosure > summary strong { font-size:var(--type-lg); }
   .filter-panel { margin-top:14px; padding:0; overflow:visible; border-inline:0; border-radius:0; }
   .filter-panel-header { align-items:center; margin:0; padding:14px 15px; border-bottom:1px solid var(--line); }
   .filter-panel h2 { font-size:var(--type-xl); }
