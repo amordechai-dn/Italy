@@ -1,0 +1,39 @@
+.hotels-heading {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:16px;
+}
+.hotels-heading p { margin:6px 0 0; color:var(--muted); font-size:var(--type-sm); }
+.hotel-count { color:var(--muted); font-size:var(--type-sm); font-weight:var(--weight-semibold); white-space:nowrap; }
+.hotels-table-shell { margin-bottom:18px; }
+.hotels-table { min-width:1040px; }
+.hotels-table th { min-width:unset; white-space:nowrap; }
+.hotels-table th.hotel-number,
+.hotels-table td.hotel-number { width:54px; min-width:54px; text-align:center; }
+.hotels-table td.hotel-number { color:var(--muted); font-variant-numeric:tabular-nums; }
+.hotel-name-cell { min-width:235px; }
+.hotel-destination { display:block; margin-bottom:2px; color:var(--muted); font-size:var(--type-xs); font-weight:var(--weight-semibold); }
+.hotel-link { color:var(--text); text-decoration-color:color-mix(in srgb,var(--blue) 48%,transparent); text-underline-offset:3px; font-weight:var(--weight-bold); }
+.hotel-link:hover { color:var(--blue); text-decoration-thickness:2px; }
+.hotel-dates { white-space:nowrap; font-variant-numeric:tabular-nums; }
+.hotel-distance { min-width:110px; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.hotel-rating { display:inline-block; min-width:42px; color:var(--blue); font-size:var(--type-lg); font-weight:var(--weight-extrabold); font-variant-numeric:tabular-nums; }
+.hotel-reviews { display:block; margin-top:2px; color:var(--muted); font-size:var(--type-xs); white-space:nowrap; }
+.hotel-condition { min-width:92px; text-align:center; }
+.hotel-check { display:inline-grid; place-items:center; width:30px; height:30px; color:#fff; border-radius:50%; background:var(--good); font-size:19px; font-weight:var(--weight-extrabold); line-height:1; }
+.hotel-price-cell { white-space:nowrap; }
+.hotel-price { font-size:var(--type-lg); font-weight:var(--weight-extrabold); font-variant-numeric:tabular-nums; }
+.highly-rated-hotel { background:color-mix(in srgb,var(--blue-soft) 38%,transparent)!important; }
+.hotel-load-error { padding:24px; color:var(--muted); text-align:center; }
+.hotels-note { width:min(100%,var(--content-max-width)); margin:16px auto 0; padding:0 4px 36px; color:var(--muted); font-size:var(--type-sm); line-height:1.7; }
+.hotels-note::before { content:"ⓘ"; margin-inline-end:8px; color:var(--blue); font-weight:var(--weight-bold); }
+@media (max-width:760px) {
+  .hotels-heading { align-items:start; }
+  .hotels-table { min-width:1040px; }
+  .hotels-table th,
+  .hotels-table td { font-size:var(--type-md); }
+}
+@media (max-width:420px) {
+  .hotel-count { font-size:var(--type-xs); }
+}

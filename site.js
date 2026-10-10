@@ -1,7 +1,7 @@
 const SITE_PAGES = [
   { id: "dashboard", href: "", file: "index.html", label: "מרכז" },
   { id: "flights", href: "flights/", file: "flights/index.html", label: "טיסות" },
-  { id: "hotels", href: "hotels/", file: "hotels/index.html", label: "מלונות", status: "בקרוב" },
+  { id: "hotels", href: "hotels/", file: "hotels/index.html", label: "מלונות" },
   { id: "attractions", href: "attractions/", file: "attractions/index.html", label: "אטרקציות", status: "בקרוב" },
 ];
 

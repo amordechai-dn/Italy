@@ -3,44 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="עמוד המלונות העתידי של תכנון הטיול לצפון איטליה.">
+  <meta name="description" content="השוואת מלונות במילאנו, קומו ובוונציה לתאריכי הטיול בצפון איטליה ביוני 2027.">
   <link rel="canonical" href="https://amordechai-dn.github.io/Italy/hotels/">
   <meta name="theme-color" content="#ffffff">
   <link rel="icon" href="../assets/italy-mark.svg" type="image/svg+xml">
-  <title>מלונות בצפון איטליה — בקרוב</title>
+  <title>מלונות במילאנו, קומו ובוונציה — צפון איטליה 2027</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
   <script src="../theme.js?v=2"></script>
   <link rel="stylesheet" href="../site.css?v=29">
-  <link rel="stylesheet" href="../placeholder.css?v=6">
+  <link rel="stylesheet" href="../hotels.css?v=1">
   <script src="../site.js?v=10" defer></script>
+  <script src="../hotels.js?v=1" defer></script>
 </head>
 <body data-page="hotels">
 <a class="skip-link" href="#main-content">דלגו לתוכן הראשי</a>
 <main>
   <header class="site-header" data-site-header aria-label="ניווט באתר"></header>
+
   <header class="hero" id="main-content" tabindex="-1">
     <p class="eyebrow">תכנון הלינה · צפון איטליה <bdi dir="ltr">2027</bdi></p>
-    <h1>מלונות</h1>
-    <p>כאן נרכז בהמשך את אפשרויות הלינה במילאנו, באזור אגם קומו ובוונציה.</p>
+    <h1>מלונות לאורך המסלול</h1>
+    <p>שלוש אפשרויות בכל יעד, לתאריכים המתוכננים — עם ציון גבוה, ארוחת בוקר כלולה וביטול חינם.</p>
   </header>
-  <section class="page-summary" aria-label="פרטי תכנון המלונות">
-    <div class="page-fact"><span>סטטוס</span><strong>בקרוב</strong></div>
-    <div class="page-fact"><span>תחנה ראשונה</span><strong>מילאנו</strong></div>
-    <div class="page-fact"><span>תחנה שנייה</span><strong>אגם קומו</strong></div>
-    <div class="page-fact"><span>תחנה שלישית</span><strong>ונציה</strong></div>
+
+  <section class="page-summary" aria-label="פרטי הלינה">
+    <div class="page-fact"><span>נוסעים</span><strong><bdi dir="ltr">2</bdi> מבוגרים</strong></div>
+    <div class="page-fact"><span>לילות</span><strong><bdi dir="ltr">7</bdi> לילות</strong></div>
+    <div class="page-fact"><span>יעדים</span><strong>מילאנו · קומו · ונציה</strong></div>
+    <div class="page-fact"><span>נבדק ב־Booking</span><strong><bdi dir="ltr" id="hotels-checked-at">—</bdi></strong></div>
   </section>
-  <div class="section-heading"><h2>תכנון המלונות</h2></div>
-  <section class="coming-soon" aria-labelledby="hotels-status-title">
-    <div class="coming-soon-copy">
-      <p class="coming-soon-label">עמוד עתידי</p>
-      <h2 id="hotels-status-title">השוואת המלונות תתווסף בהמשך</h2>
-      <p>העמוד כבר מחובר למבנה האתר ומוכן לקבל מלונות, מחירים, מיקומים והמלצות.</p>
-      <a class="back-home" href="../">חזרה למרכז ←</a>
-    </div>
-    <div class="coming-soon-mark" aria-hidden="true">⌂</div>
+
+  <div class="section-heading hotels-heading">
+    <div><h2 id="hotel-date-range">אפשרויות לינה · 1/6–8/6</h2><p>המחיר הכולל לזוג עבור מספר הלילות בכל יעד.</p></div>
+    <span class="hotel-count" id="hotel-count">—</span>
+  </div>
+
+  <section class="table-shell hotels-table-shell" aria-label="השוואת מלונות לפי יעד">
+    <p class="table-scroll-hint" id="hotels-table-help">בטלפון אפשר לגלול לרוחב כדי לראות את כל הפרטים.</p>
+    <section class="table-scroll" tabindex="0" aria-label="טבלת השוואת מלונות" aria-describedby="hotels-table-help">
+      <table class="hotels-table">
+        <caption>מלונות שנמצאו ב־Booking לתאריכי הטיול, עם ארוחת בוקר כלולה ואפשרות ביטול חינם</caption>
+        <thead><tr>
+          <th class="hotel-number" scope="col">מס׳</th>
+          <th scope="col">יעד ומלון</th>
+          <th scope="col">תאריכים</th>
+          <th scope="col">דירוג</th>
+          <th scope="col">מרחק מהמרכז</th>
+          <th scope="col">ארוחת בוקר</th>
+          <th scope="col">ביטול</th>
+          <th scope="col">מחיר ללילה</th>
+          <th scope="col">מחיר לזוג</th>
+        </tr></thead>
+        <tbody id="hotel-table-body"></tbody>
+      </table>
+    </section>
   </section>
+
+  <p class="hotels-note" id="hotels-note">המרחק מהמרכז הוא אומדן כפי שמוצג ב־Booking. מחיר ללילה הוא ממוצע לזוג, מחושב מהמחיר הכולל ומעוגל לשקל. המחירים ותנאי החדרים עשויים להשתנות; יש לבדוק בעמוד ההזמנה את מועד הביטול האחרון ואת תנאי התעריף לפני התשלום.</p>
 </main>
 </body>
 </html>

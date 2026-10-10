@@ -1,0 +1,128 @@
+{
+  "schemaVersion": 1,
+  "source": "Booking.com",
+  "checkedAt": "2026-10-07",
+  "currency": "ILS",
+  "party": { "adults": 2, "rooms": 1 },
+  "cancellationNote": "Free cancellation was shown for the selected room rate at check time. The exact cancellation deadline depends on the selected room and rate.",
+  "breakfastNote": "Breakfast is included in the selected rate shown at check time.",
+  "destinations": [
+    {
+      "id": "milan",
+      "name": "מילאנו",
+      "arrival": "2027-06-01",
+      "departure": "2027-06-04",
+      "nights": 3,
+      "hotels": [
+        {
+          "name": "JR Hotels Bocconi Milano",
+          "rating": 8.5,
+          "reviewCount": 1787,
+          "distanceFromCenterKm": 1.6,
+          "priceForTwoILS": 1807,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/top-liberty.html?checkin=2027-06-01&checkout=2027-06-04&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "Hotel Vittoria",
+          "rating": 8.1,
+          "reviewCount": 1737,
+          "distanceFromCenterKm": 1.7,
+          "priceForTwoILS": 2335,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/hotelvittoria.html?checkin=2027-06-01&checkout=2027-06-04&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "IH Hotels Milano Centrale",
+          "rating": 8.3,
+          "reviewCount": 4882,
+          "distanceFromCenterKm": 2.4,
+          "priceForTwoILS": 2419,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/ih-hotels-milano-centrale.html?checkin=2027-06-01&checkout=2027-06-04&group_adults=2&no_rooms=1&group_children=0"
+        }
+      ]
+    },
+    {
+      "id": "como",
+      "name": "קומו",
+      "arrival": "2027-06-04",
+      "departure": "2027-06-06",
+      "nights": 2,
+      "hotels": [
+        {
+          "name": "Hotel Engadina",
+          "rating": 8.1,
+          "reviewCount": 2657,
+          "distanceFromCenterKm": 1.2,
+          "priceForTwoILS": 888,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/engadinacomo.html?checkin=2027-06-04&checkout=2027-06-06&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "Hotel Tre Re",
+          "rating": 8.1,
+          "reviewCount": 2175,
+          "distanceFromCenterKm": 0.45,
+          "priceForTwoILS": 1563,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/tre-re.html?checkin=2027-06-04&checkout=2027-06-06&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "Albergo del Duca",
+          "rating": 9.2,
+          "reviewCount": 1015,
+          "distanceFromCenterKm": 0.5,
+          "priceForTwoILS": 1721,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/albergo-del-duca.html?checkin=2027-06-04&checkout=2027-06-06&group_adults=2&no_rooms=1&group_children=0"
+        }
+      ]
+    },
+    {
+      "id": "venice",
+      "name": "ונציה",
+      "arrival": "2027-06-06",
+      "departure": "2027-06-08",
+      "nights": 2,
+      "hotels": [
+        {
+          "name": "Hampton by Hilton Venice Isola Nuova",
+          "rating": 8.8,
+          "reviewCount": 4868,
+          "distanceFromCenterKm": 2.7,
+          "priceForTwoILS": 1325,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/hampton-by-hilton-venice-isola-nuova.html?checkin=2027-06-06&checkout=2027-06-08&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "Hotel Gorizia a La Valigia",
+          "rating": 8.7,
+          "reviewCount": 2596,
+          "distanceFromCenterKm": 0.25,
+          "priceForTwoILS": 1467,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/hotelgoriziaalavaligia.html?checkin=2027-06-06&checkout=2027-06-08&group_adults=2&no_rooms=1&group_children=0"
+        },
+        {
+          "name": "Hotel Saturnia & International",
+          "rating": 9.3,
+          "reviewCount": 2145,
+          "distanceFromCenterKm": 0.35,
+          "priceForTwoILS": 2106,
+          "breakfastIncluded": true,
+          "freeCancellation": true,
+          "bookingUrl": "https://www.booking.com/hotel/it/hotelsaturniainternational.html?checkin=2027-06-06&checkout=2027-06-08&group_adults=2&no_rooms=1&group_children=0"
+        }
+      ]
+    }
+  ]
+}
